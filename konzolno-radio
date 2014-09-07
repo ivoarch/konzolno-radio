@@ -1,0 +1,347 @@
+#!/bin/bash
+# konzolno-radio - за слушане на български радио станции онлайн в GNU/Linux.
+
+###############
+# История
+#########
+#
+# 1.0.1.dev
+# автор: Ivaylo Kuzev
+#
+# Добавени нови опции -r -u -v
+# Актуализирани и добавяне нови радио станции
+# Добавяне на цветен изход плус други черешки по скрипта
+# Добавен изход на български език
+#
+# --------------------------------------------------
+#
+# 1.0.0
+#
+# Първоначална версия (шаблон)
+# URL адрес: https://gist.github.com/abozhilov/1230188
+# автор: Asen Bozhilov
+#
+# ----------------------------------------------------------------------------
+# The MIT License (MIT)
+# Copyright (c) 2011 Asen Bozhilov
+# Copyright (c) 2014 Ivaylo Kuzev
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+clear
+
+# Името на програмата
+PROG=${0##*/}
+
+# Текущата версия
+VERSION=1.0.1.dev
+
+# Изкарва помощтен текст
+print_help() {
+    cat << EOF
+Usage: ${PROG} [Опция] [Номер на радио]...
+
+Опции:
+  -l        Показва списък на всички радио станции.
+  -p        Пусни радио станция от списъка.
+  -g        Покажи списък на наличните жанрове.
+  -u        Въведете URL адреса за стрийминг радио станцията, която желаете.
+  -r        Запишете mp3 радио стрийминг на файл.
+  [-h | --help] Показва този помощен текст.
+  -v        Покажи информация за версията.
+
+   Примери - Пусни радио станция:
+   ${PROG} -l -- показва списък на всички радио станции
+   ${PROG} -p 6 -- пуска шеста радио станция от списъка (Радио Maxx FM)
+   ${PROG} -r 6 -- записва .mp3 файл на шестата радио станция от списъка (Радио Maxx FM)
+
+   Примери - Пусни радио станция от спецефичен жанр.
+   ${PROG} -g -l -- паказва всички жанрове
+   ${PROG} -g 2 -l -- показва всички радио станции от жанр (Денс)
+   ${PROG} -g 2 -p 0 -- пуска първата радио станция от жанр (Денс) - (Радио Maxx FM)
+   ${PROG} -g 2 -r 0 -- записва .mp3 файл на първата радио станция от жанр (Денс) - (Радио Maxx FM)
+
+EOF
+}
+
+# Цветен текст
+green=$'\e[0;32m'
+blue=$'\e[0;34m'
+pur=$'\e[0;35m'
+red=$'\e[0;31m'
+end=$'\e[0m'
+
+# Плейър
+PLAY_COMMAND="mplayer -quiet -nolirc -cache 500 -cache-min 1 -prefer-ipv4 -noframedrop -playlist"
+
+# Записвач
+DEFAULT_FILE="StreamDump"
+FILETYPE="mp3"
+POSTFIX=$(date +%y-%m-%d_%H:%M)
+LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
+RECORDER="mplayer -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
+
+# Имена на радио станции
+NAMES=(
+"БГрадио"
+"Радио 1 рок"
+"Радио Z-Rock"
+"Радио Energy"
+"Радио City"
+"Радио Fresh"
+"Радио Maxx FM"
+"Радио N-Joy"
+"BTV Радио"
+"Радио Melody"
+"Радио FM+"
+"Алфа радио"
+"Радио Nova"
+"Стар ФМ"
+"Фокус радио"
+"Джас ФМ"
+"Радио Зорана"
+"Радио Тангра"
+"Трафик Radio"
+"IHM Radio"
+"Радио Екстра"
+"Радио vis-vitalis"
+"Vibes радио"
+"Eilo - progressive"
+"Eilo - house"
+"Радио Belisimo"
+"24x7 Rock"
+"Ghost Rider Radio"
+"Радио Вероника"
+"Радио Веселина"
+"Балканско радио"
+"Радио Фолк Бг"
+"Дарик радио"
+"Дарик носталджи"
+)
+
+# Стрийминги
+STREAMS=(
+"http://80.72.68.217/bgradio.ogg.m3u"
+"http://80.72.68.217/radio1rock_low.ogg"
+"http://ng.btv.bg/m3u/zrock.m3u"
+"http://80.72.68.217/nrj.ogg.m3u"
+"http://62.204.145.218:8000/city64.m3u"
+"http://193.108.24.21:8000/fresh.m3u"
+"http://play.radiomaxxfm.com/maxx.m3u"
+"http://ng.btv.bg/m3u/njoy.m3u"
+"http://ng.btv.bg/m3u/btvradio.m3u"
+"http://ng.btv.bg/m3u/melody.m3u"
+"http://www.slusham.com/radio/fmplus.m3u"
+"http://188.126.1.25:8000/AlphaRadio.m3u"
+"http://www.slusham.com/radio/nova.m3u"
+"http://pulsar.atlantis.bg:8000/starfm.m3u"
+"http://online.focus-radio.net:8100/sofia.m3u"
+"http://ng.btv.bg/m3u/jazzfm.m3u"
+"http://streaming.gesbg.com/zorana.pls"
+"http://stream-02.radiotangra.com:8000/Tangra-high.m3u"
+"http://radio.networx-bg.com:8002/listen.pls"
+"http://77.70.53.35:8000/listen.pls"
+"http://play.radioextra.org/extra.m3u"
+"http://online.vvitalis.com/vis-vitalis.m3u"
+"http://195.24.54.14:8000/listen.pls"
+"http://eilo.org:8000/progressive.m3u"
+"http://eilo.org:8000/house.m3u"
+"http://82.103.79.63:7090/listen.pls"
+"http://193.107.70.107:8000/stream.ogg.m3u"
+"http://onlineradio.inbulgaria.info/link.php\?id\=8981"
+"http://www.slusham.com/radio/veronika.m3u"
+"http://www.slusham.com/radio/veselina.m3u"
+"http://onlineradio.inbulgaria.info/link.php?id=8431"
+"http://folkbg.net/folkbg.net.m3u"
+"http://slusham.com/radio/darik.m3u"
+"http://dariknostalgie.bg/wp-content/uploads/nostalgie.m3u"
+)
+
+# Жанрове
+GENRES=(
+"Българска музика"
+"ХипХоп и R&B"
+"Денс"
+"Поп"
+"Рок и Хеви метъл"
+"Ретро"
+"Разни"
+"Хаус"
+"Новини"
+"Прогресив"
+"Поп Фолк"
+)
+
+BGMUSIC=(0 16)
+BLACK=()
+DANCE=(6 20 25)
+POP=(3 4 7 8 9 10 12 21)
+ROCK=(1 2 13 17 19 21 26 27)
+RETRO=(9 20 33)
+VARIOUS=(5 15 19)
+HOUSE=(6 11 18 24)
+NEWS=(14 32)
+PROGRESSIVE=(22 23)
+POP_FOLK=(28 29 30 31)
+
+# получава жанра
+getGenre() {
+    if [ "$1" -eq "0" ]; then
+        genre=("${BGMUSIC[@]}")
+    elif [ "$1" -eq "1" ]; then
+        genre=("${BLACK[@]}")
+    elif [ "$1" -eq "2" ]; then
+        genre=("${DANCE[@]}")
+    elif [ "$1" -eq "3" ]; then
+        genre=("${POP[@]}")
+    elif [ "$1" -eq "4" ]; then
+        genre=("${ROCK[@]}")
+    elif [ "$1" -eq "5" ]; then
+        genre=("${RETRO[@]}")
+    elif [ "$1" -eq "6" ]; then
+        genre=("${VARIOUS[@]}")
+    elif [ "$1" -eq "7" ]; then
+        genre=("${HOUSE[@]}")
+    elif [ "$1" -eq "8" ]; then
+        genre=("${NEWS[@]}")
+    elif [ "$1" -eq "9" ]; then
+        genre=("${PROGRESSIVE[@]}")
+    elif [ "$1" -eq "10" ]; then
+       genre=("${POP_FOLK[@]}")
+    else
+        echo "${red}Unknown genre${end}"
+    fi
+}
+
+# Проверява аргументите
+if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
+    print_help
+# Изкарва версията
+elif [ "$1" = "-v" ]; then
+    echo "${VERSION}"
+# Въведете url на радио станция
+elif [ "$1" = "-u" ]; then
+    echo -e "${green}$PROG $VERSION ${end}"
+    echo -n "${blue}Въведете URL адреса за стрийминг радио станцията:${end} "
+    read URL
+    $PLAY_COMMAND "${URL}" 2>&1 | sed -n '/Name/,/Bitrate/ p'
+# Списък на радио станции
+elif [ "$1" = "-l" ]; then
+    echo -e "${green}$PROG $VERSION ${end}"
+    echo -e "${blue}>>>  ${pur}Списък на всички радио станции${end}${blue}  <<<${end}"
+    i=0
+    while [ "$i" -lt "${#NAMES[*]}" ]; do
+        echo $i "♪" ${NAMES[$i]}
+        ((i++))
+    done
+# Пусни радио от списъка
+elif [ "$1" = "-p" ]; then
+    if [ -n "${STREAMS[$2]}" ]; then
+        echo -e "${green}$PROG $VERSION ${end}"
+        echo -e "${blue}Натиснете q за да излезете${end}"
+        $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | sed -n '/Name/,/Bitrate/ p'
+        exit $?
+    else
+        echo -e "${red}Моля, вижте списъка на наличните радио станции.${end}"
+        exit 1
+    fi
+# Записва радио станция от списъка
+elif [ "$1" = "-r" ]; then
+    if [ -n "${STREAMS[$2]}" ]; then
+        echo -e "${green}$PROG $VERSION ${end}"
+        echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
+        read LENGTH
+        $RECORDER ${STREAMS[$2]} >/dev/null 2>&1 &
+        PID="$!"
+        sleep "${LENGTH}"
+        kill "${PID}"
+        exit $?
+    else
+        echo -e "${red}Моля, вижте списъка на наличните радио станции.${end}"
+        exit 1
+fi
+# Жанрове
+elif [ "$1" = "-g" ]; then
+    # Списък на жанрове
+    if [ "$2" = "-l" ]; then
+        echo -e "${green}$PROG $VERSION ${end}"
+        echo -e "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
+        i=0
+        while [ "$i" -lt "${#GENRES[*]}" ]; do
+            echo $i "♪" ${GENRES[$i]}
+           ((i++))
+        done
+    elif [[ $2 =~ ^[0-9]+$ ]]; then
+        if [ "$2" -ge "0" -a "$2" -lt "${#GENRES[*]}" ]; then
+            getGenre "$2"
+            if [ -z "$3" -o "$3" = "-l" ]; then
+                echo -e "${green}$PROG $VERSION ${end}"
+                echo -e "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
+                i=0
+                while [ "$i" -lt "${#genre[*]}" ]; do
+                    echo $i "♪" ${NAMES[${genre[$i]}]}
+                    ((i++))
+                done
+# запиши от жанр
+            elif [ "$3" = "-r" ]; then
+                if [ -n "${genre[$4]}" ]; then
+                    echo -e "${green}$PROG $VERSION ${end}"
+                    echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
+                    read LENGTH
+                    $RECORDER ${STREAMS[${genre[$4]}]} >/dev/null 2>&1 &
+                    PID="$!"
+                    sleep "${LENGTH}"
+                    kill "${PID}"
+                    exit $?
+                else
+                    echo "${red}Моля, вижте списъка на наличните радио станции от този жанр.${end}"
+                    exit 1
+                fi
+# пусни от жанр
+elif [ "$3" = "-p" ]; then
+                if [ -n "${genre[$4]}" ]; then
+                    echo -e "${green}$PROG $VERSION ${end}"
+                    echo -e "${blue}Press q to quit${end}"
+                    $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | sed -n '/Name/,/Bitrate/ p'
+                    exit $?
+                else
+                    echo "${red}Моля, вижте списъка на наличните радио станции от този жанр.${end}"
+                    exit 1
+                fi
+            else
+                echo "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
+                exit 2
+            fi
+        else
+            echo "${red}Моля, вижте списъка от жанрове.${end}"
+            exit 1
+        fi
+    else
+        echo "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
+        exit 2
+    fi
+else
+    echo "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
+    exit 2
+fi
+exit 0
+
+#####
+# Край на скрипта
+################ ####  ##    #
