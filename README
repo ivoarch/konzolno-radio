@@ -15,7 +15,7 @@
     $ cd /път/до/konzolno-radio/
     $ make install
 
-= Инсталция git версия
+= Инсталация git версия
 
     $ git clone https://github.com/ivoarch/konzolno-radio
     $ cd /път/до/konzolno-radio/
