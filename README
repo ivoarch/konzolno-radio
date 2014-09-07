@@ -10,7 +10,7 @@
 
 = Инсталация
 
-    $ wget -c  https://github.com/ivoarch/konzolno-radio/blob/master/konzolno-radio-1.0.1.dev.tgz
+    $ wget -c  wget -c https://github.com/ivoarch/konzolno-radio/raw/master/konzolno-radio-1.0.1.dev.tgz
     $ tar -xvf konzolno-radio-1.0.1.dev.tgz
     $ cd /път/до/konzolno-radio/
     $ make install
