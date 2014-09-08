@@ -1,21 +1,26 @@
-= konzolno-radio (конзолно-радио)
+konzolno-radio (конзолно-радио)
+-------------------------------
 
-= Какво е това
+Какво е това
+------------
 
 Просто конзолно интернет радио (или лесен начин) за слушане на български радио станции онлайн в GNU/Linux. (с `Mplayer`)
 
-= Зависимости
+Зависимости
+-----------
 
 Използва `mplayer` за слушане/записване
 
-= Инсталация
+Инсталация на последната стабилна версия (1.0.1.dev)
+---------------------------------------------------
 
-    $ wget -c  wget -c https://github.com/ivoarch/konzolno-radio/raw/master/konzolno-radio-1.0.1.dev.tgz
-    $ tar -xvf konzolno-radio-1.0.1.dev.tgz
-    $ cd /път/до/konzolno-radio/
+    $ wget -c https://github.com/ivoarch/konzolno-radio/archive/1.0.1.dev.tar.gz
+    $ tar -xvf 1.0.1.dev.tgz
+    $ cd /път/до/konzolno-radio-1.0.1.dev/
     $ make install
 
-= Инсталация git версия
+Инсталация на git версията
+--------------------------
 
     $ git clone https://github.com/ivoarch/konzolno-radio
     $ cd /път/до/konzolno-radio/
