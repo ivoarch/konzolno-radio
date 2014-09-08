@@ -47,12 +47,14 @@
 clear
 
 # Името на програмата
+# изглежда по-приятно, отколкото $0, който съдържа пълния път.
 PROG="${0##*/}"
 
 # Текущата версия
 VERSION="1.0.1.dev"
 
-#BANNER="${PROG} ${VERSION}"
+# Заглавен ред - показва се най отгоре, когато е стартирана програмата
+BANNER="${PROG} ${VERSION}"
 
 # Изкарва помощтен текст
 print_help() {
@@ -239,13 +241,13 @@ elif [ "$1" = "-v" ]; then
     echo "${VERSION}"
 # Въведете url на радио станция
 elif [ "$1" = "-u" ]; then
-    echo -e "${green}$PROG $VERSION ${end}"
+    echo -e "${green}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радио станцията:${end} "
     read URL
     $PLAY_COMMAND "${URL}" 2>&1 | sed -n '/Name/,/Bitrate/ p'
 # Списък на радио станции
 elif [ "$1" = "-l" ]; then
-    echo -e "${green}$PROG $VERSION ${end}"
+    echo -e "${green}$BANNER${end}"
     echo -e "${blue}>>>  ${pur}Списък на всички радио станции${end}${blue}  <<<${end}"
     i=0
     while [ "$i" -lt "${#NAMES[*]}" ]; do
@@ -255,7 +257,7 @@ elif [ "$1" = "-l" ]; then
 # Пусни радио от списъка
 elif [ "$1" = "-p" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
-        echo -e "${green}$PROG $VERSION ${end}"
+        echo -e "${green}$BANNER${end}"
         echo -e "${blue}Натиснете q за да излезете${end}"
         $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | sed -n '/Name/,/Bitrate/ p'
         exit $?
@@ -266,7 +268,7 @@ elif [ "$1" = "-p" ]; then
 # Записва радио станция от списъка
 elif [ "$1" = "-r" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
-        echo -e "${green}$PROG $VERSION ${end}"
+        echo -e "${green}$BANNER${end}"
         echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
         read LENGTH
         $RECORDER ${STREAMS[$2]} >/dev/null 2>&1 &
@@ -282,7 +284,7 @@ fi
 elif [ "$1" = "-g" ]; then
     # Списък на жанрове
     if [ "$2" = "-l" ]; then
-        echo -e "${green}$PROG $VERSION ${end}"
+        echo -e "${green}$BANNER${end}"
         echo -e "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
         i=0
         while [ "$i" -lt "${#GENRES[*]}" ]; do
@@ -293,7 +295,7 @@ elif [ "$1" = "-g" ]; then
         if [ "$2" -ge "0" -a "$2" -lt "${#GENRES[*]}" ]; then
             getGenre "$2"
             if [ -z "$3" -o "$3" = "-l" ]; then
-                echo -e "${green}$PROG $VERSION ${end}"
+                echo -e "${green}$BANNER${end}"
                 echo -e "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
                 i=0
                 while [ "$i" -lt "${#genre[*]}" ]; do
@@ -303,7 +305,7 @@ elif [ "$1" = "-g" ]; then
 # запиши от жанр
             elif [ "$3" = "-r" ]; then
                 if [ -n "${genre[$4]}" ]; then
-                    echo -e "${green}$PROG $VERSION ${end}"
+                    echo -e "${green}$BANNER${end}"
                     echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
                     read LENGTH
                     $RECORDER ${STREAMS[${genre[$4]}]} >/dev/null 2>&1 &
@@ -318,7 +320,7 @@ elif [ "$1" = "-g" ]; then
 # пусни от жанр
 elif [ "$3" = "-p" ]; then
                 if [ -n "${genre[$4]}" ]; then
-                    echo -e "${green}$PROG $VERSION ${end}"
+                    echo -e "${green}$BANNER${end}"
                     echo -e "${blue}Press q to quit${end}"
                     $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | sed -n '/Name/,/Bitrate/ p'
                     exit $?
