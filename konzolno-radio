@@ -138,6 +138,15 @@ NAMES=(
 "Дарик радио"
 "Дарик носталджи"
 "Радио PartyStyle"
+"KatraFM"
+"Радио Мая"
+"MFM Hitradio"
+"VoodooNet"
+"YAKATA RABOTA"
+"Dee Jay"
+"Hot Dance"
+"Радио Viva Bg"
+"Радио Реакция"
 )
 
 # Стрийминги
@@ -177,6 +186,15 @@ STREAMS=(
 "http://slusham.com/radio/darik.m3u"
 "http://dariknostalgie.bg/wp-content/uploads/nostalgie.m3u"
 "http://radiocp.novahost.bg:2199/tunein/radio162.pls"
+"http://www.katrafm.com/katrafm_mp3pro.m3u"
+"http://mail.rntel.com:9000/listen.pls"
+"http://www.mfmhitradio.net/mfm.m3u"
+"http://voodoonet.biz:8000/listen.pls"
+"http://212.117.39.164:8000/listen.pls"
+"http://radiodeejay.eu:8000/live.m3u"
+"http://listen.hotget.net:8000/radio.m3u"
+"http://stream.radioextra-bg.net:8000/viva-eurodance.m3u"
+"http://reakcia.net/stream/stream.m3u"
 )
 
 # Жанрове
@@ -192,19 +210,21 @@ GENRES=(
 "Новини"
 "Прогресив"
 "Поп Фолк"
+"CHR"
 )
 
-BGMUSIC=(0 16)
-BLACK=(34)
-DANCE=(6 20 25)
-POP=(3 4 7 8 9 10 12 21)
-ROCK=(1 2 13 17 19 21 26 27)
-RETRO=(9 20 33)
-VARIOUS=(5 15 19)
+BGMUSIC=(0 16 34 38)
+BLACK=(34 38 39)
+DANCE=(6 20 25 37 40 41)
+POP=(3 4 7 8 9 10 12 21 35 37)
+ROCK=(1 2 13 17 19 21 26 27 43)
+RETRO=(9 20 33 41)
+VARIOUS=(5 15 19 35 42)
 HOUSE=(6 11 18 24)
-NEWS=(14 32)
+NEWS=(8 14 32)
 PROGRESSIVE=(22 23)
 POP_FOLK=(28 29 30 31)
+CHR=(4 36 37)
 
 # получава жанра
 getGenre() {
@@ -230,6 +250,8 @@ getGenre() {
         genre=("${PROGRESSIVE[@]}")
     elif [ "$1" -eq "10" ]; then
        genre=("${POP_FOLK[@]}")
+    elif [ "$1" -eq "11" ]; then
+       genre=("${CHR[@]}")
     else
         echo "${red}Unknown genre${end}"
     fi
