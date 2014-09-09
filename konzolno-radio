@@ -85,10 +85,10 @@ EOF
 }
 
 # Цветен текст
+red=$'\e[0;31m'
 green=$'\e[0;32m'
 blue=$'\e[0;34m'
 pur=$'\e[0;35m'
-red=$'\e[0;31m'
 end=$'\e[0m'
 
 # Плейър
@@ -268,7 +268,7 @@ elif [ "$1" = "-u" ]; then
     echo -e "${green}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радио станцията:${end} "
     read URL
-    $PLAY_COMMAND "${URL}" 2>&1 | egrep -i "(Playing|Name|Genre|Website|Bitrate|ICY)"
+    $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|Bitrate|ICY Info)"
 # Списък на радио станции
 elif [ "$1" = "-l" ]; then
     echo -e "${green}$BANNER${end}"
@@ -283,7 +283,7 @@ elif [ "$1" = "-p" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
         echo -e "${green}$BANNER${end}"
         echo -e "${blue}Натиснете q за да излезете${end}"
-        $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | egrep -i "(Playing|Name|Genre|Website|Bitrate|ICY)"
+        $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|Bitrate|ICY Info)"
         exit $?
     else
         echo -e "${red}Моля, вижте списъка на наличните радио станции.${end}"
@@ -346,7 +346,7 @@ elif [ "$3" = "-p" ]; then
                 if [ -n "${genre[$4]}" ]; then
                     echo -e "${green}$BANNER${end}"
                     echo -e "${blue}Press q to quit${end}"
-                    $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | egrep -i "(Playing|Name|Genre|Website|Bitrate|ICY)"
+                    $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|Bitrate|ICY Info)"
                     exit $?
                 else
                     echo "${red}Моля, вижте списъка на наличните радио станции от този жанр.${end}"
