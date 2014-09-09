@@ -137,6 +137,7 @@ NAMES=(
 "Радио Фолк Бг"
 "Дарик радио"
 "Дарик носталджи"
+"Радио PartyStyle"
 )
 
 # Стрийминги
@@ -175,6 +176,7 @@ STREAMS=(
 "http://folkbg.net/folkbg.net.m3u"
 "http://slusham.com/radio/darik.m3u"
 "http://dariknostalgie.bg/wp-content/uploads/nostalgie.m3u"
+"http://radiocp.novahost.bg:2199/tunein/radio162.pls"
 )
 
 # Жанрове
@@ -193,7 +195,7 @@ GENRES=(
 )
 
 BGMUSIC=(0 16)
-BLACK=()
+BLACK=(34)
 DANCE=(6 20 25)
 POP=(3 4 7 8 9 10 12 21)
 ROCK=(1 2 13 17 19 21 26 27)
