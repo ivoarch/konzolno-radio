@@ -86,7 +86,7 @@ EOF
 
 # Цветен текст
 red=$'\e[0;31m'
-green=$'\e[0;32m'
+green=$'\e[1;32m'
 blue=$'\e[0;34m'
 pur=$'\e[0;35m'
 end=$'\e[0m'
