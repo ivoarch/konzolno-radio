@@ -27,3 +27,11 @@ konzolno-radio (конзолно-радио)
     $ make install
 
 По подразбиране `konzolno-radio` се инсталира в `/usr/local/bin`, ако искате да му промените пътя, редактирайте `Makefile`.
+
+Bugs
+----
+За всякакви грешки или заявки, пишете в [GitHub](https://github.com/ivoarch/konzolno-radio) [issue](https://github.com/ivoarch/konzolno-radio/issues).
+
+Лиценз
+------
+Този проект е лицензиран под MIT лиценз.
