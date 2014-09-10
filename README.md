@@ -15,7 +15,7 @@ konzolno-radio (конзолно-радио)
 ---------------------------------------------------
 
     $ wget -c https://github.com/ivoarch/konzolno-radio/archive/1.0.2.tar.gz
-    $ tar -xvf 1.0.2.tgz
+    $ tar -xvf 1.0.2.tar.gz
     $ cd /път/до/konzolno-radio-1.0.2/
     $ make install
 
