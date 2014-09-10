@@ -11,12 +11,12 @@ konzolno-radio (конзолно-радио)
 
 Използва `mplayer` за слушане/записване
 
-Инсталация на последната стабилна версия (1.0.1.dev)
+Инсталация на последната стабилна версия (1.0.2)
 ---------------------------------------------------
 
-    $ wget -c https://github.com/ivoarch/konzolno-radio/archive/1.0.1.dev.tar.gz
-    $ tar -xvf 1.0.1.dev.tgz
-    $ cd /път/до/konzolno-radio-1.0.1.dev/
+    $ wget -c https://github.com/ivoarch/konzolno-radio/archive/1.0.2.tar.gz
+    $ tar -xvf 1.0.2.tgz
+    $ cd /път/до/konzolno-radio-1.0.2/
     $ make install
 
 Инсталация на git версията
