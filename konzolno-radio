@@ -87,8 +87,10 @@ EOF
 # Цветен текст
 red=$'\e[0;31m'
 green=$'\e[1;32m'
+ylw=$'\e[0;33m'
 blue=$'\e[0;34m'
 pur=$'\e[0;35m'
+cyn=$'\e[0;36m'
 end=$'\e[0m'
 
 # Плейър
@@ -268,14 +270,20 @@ elif [ "$1" = "-u" ]; then
     echo -e "${green}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радио станцията:${end} "
     read URL
-    $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|Bitrate|ICY Info)"
+    $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
+        "(Name|Genre|Website|Bitrate|ICY Info)"
 # Списък на радио станции
 elif [ "$1" = "-l" ]; then
     echo -e "${green}$BANNER${end}"
     echo -e "${blue}>>>  ${pur}Списък на всички радио станции${end}${blue}  <<<${end}"
     i=0
     while [ "$i" -lt "${#NAMES[*]}" ]; do
-        echo $i "♪" ${NAMES[$i]}
+        echo $i "♪" ${NAMES[$i]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
+            -e "s/[^[:blank:]]\{1,\}/$pur&$end/2" \
+            -e "s/[^[:blank:]]\{1,\}/$cyn&$end/3" \
+            -e "s/[^[:blank:]]\{1,\}/$cyn&$end/4" \
+            -e "s/[^[:blank:]]\{1,\}/$cyn&$end/5" \
+            -e "s/[^[:blank:]]\{1,\}/$cyn&$end/6"
         ((i++))
     done
 # Пусни радио от списъка
@@ -283,7 +291,8 @@ elif [ "$1" = "-p" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
         echo -e "${green}$BANNER${end}"
         echo -e "${blue}Натиснете q за да излезете${end}"
-        $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|Bitrate|ICY Info)"
+        $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
+            "(Name|Genre|Website|Bitrate|ICY Info)"
         exit $?
     else
         echo -e "${red}Моля, вижте списъка на наличните радио станции.${end}"
@@ -312,7 +321,12 @@ elif [ "$1" = "-g" ]; then
         echo -e "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
         i=0
         while [ "$i" -lt "${#GENRES[*]}" ]; do
-            echo $i "♪" ${GENRES[$i]}
+            echo $i "♪" ${GENRES[$i]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
+                -e "s/[^[:blank:]]\{1,\}/$pur&$end/2" \
+                -e "s/[^[:blank:]]\{1,\}/$cyn&$end/3" \
+                -e "s/[^[:blank:]]\{1,\}/$cyn&$end/4" \
+                -e "s/[^[:blank:]]\{1,\}/$cyn&$end/5" \
+                -e "s/[^[:blank:]]\{1,\}/$cyn&$end/6"
            ((i++))
         done
     elif [[ $2 =~ ^[0-9]+$ ]]; then
@@ -323,7 +337,12 @@ elif [ "$1" = "-g" ]; then
                 echo -e "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
                 i=0
                 while [ "$i" -lt "${#genre[*]}" ]; do
-                    echo $i "♪" ${NAMES[${genre[$i]}]}
+                    echo $i "♪" ${NAMES[${genre[$i]}]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
+                        -e "s/[^[:blank:]]\{1,\}/$pur&$end/2" \
+                        -e "s/[^[:blank:]]\{1,\}/$cyn&$end/3" \
+                        -e "s/[^[:blank:]]\{1,\}/$cyn&$end/4" \
+                        -e "s/[^[:blank:]]\{1,\}/$cyn&$end/5" \
+                        -e "s/[^[:blank:]]\{1,\}/$cyn&$end/6"
                     ((i++))
                 done
 # запиши от жанр
@@ -346,7 +365,8 @@ elif [ "$3" = "-p" ]; then
                 if [ -n "${genre[$4]}" ]; then
                     echo -e "${green}$BANNER${end}"
                     echo -e "${blue}Press q to quit${end}"
-                    $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|Bitrate|ICY Info)"
+                    $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
+                        "(Name|Genre|Website|Bitrate|ICY Info)"
                     exit $?
                 else
                     echo "${red}Моля, вижте списъка на наличните радио станции от този жанр.${end}"
