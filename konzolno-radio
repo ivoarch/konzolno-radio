@@ -107,31 +107,31 @@ RECORDER="mplayer -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FIL
 NAMES=(
 "БГрадио"
 "Радио 1 рок"
-"Радио Z-Rock"
-"Радио Energy"
+"Z-Rock"
+"Energy"
 "Радио City"
 "Радио Fresh"
-"Радио Maxx FM"
+"Maxx FM"
 "Радио N-Joy"
 "BTV Радио"
-"Радио Melody"
+"Melody"
 "Радио FM+"
 "Алфа радио"
 "Радио Nova"
 "Стар ФМ"
-"Фокус радио"
-"Джас ФМ"
+"Фокус"
+"Джас ФМ радио"
 "Радио Зорана"
 "Радио Тангра"
 "Трафик Radio"
-"IHM Radio"
+"I Hate Mondays"
 "Радио Екстра"
 "Радио vis-vitalis"
 "Vibes радио"
 "Eilo - progressive"
 "Eilo - house"
 "Радио Belisimo"
-"24x7 Rock"
+"24x7 Rock радио"
 "Ghost Rider Radio"
 "Радио Вероника"
 "Радио Веселина"
@@ -157,7 +157,7 @@ STREAMS=(
 "http://80.72.68.217/radio1rock_low.ogg"
 "http://ng.btv.bg/m3u/zrock.m3u"
 "http://80.72.68.217/nrj.ogg.m3u"
-"http://62.204.145.218:8000/city64.m3u"
+"http://city.bg/files/RADIO_CITY.pls"
 "http://193.108.24.21:8000/fresh.m3u"
 "http://play.radiomaxxfm.com/maxx.m3u"
 "http://ng.btv.bg/m3u/njoy.m3u"
@@ -285,7 +285,7 @@ elif [ "$1" = "-l" ]; then
             -e "s/[^[:blank:]]\{1,\}/$cyn&$end/5" \
             -e "s/[^[:blank:]]\{1,\}/$cyn&$end/6"
         ((i++))
-    done
+    done |  pr -3 -l 24 -t -T -J
 # Пусни радио от списъка
 elif [ "$1" = "-p" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
