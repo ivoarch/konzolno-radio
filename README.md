@@ -30,8 +30,8 @@ konzolno-radio (конзолно-радио)
 
 Bugs
 ----
-За всякакви грешки или заявки, пишете в [GitHub](https://github.com/ivoarch/konzolno-radio) [issue](https://github.com/ivoarch/konzolno-radio/issues).
+За всякакви грешки или заявки, пишете на [GitHub](https://github.com/ivoarch/konzolno-radio) [issue](https://github.com/ivoarch/konzolno-radio/issues).
 
 Лиценз
 ------
-Този проект е лицензиран под MIT лиценз.
+Проекта е лицензиран под MIT лиценз.
