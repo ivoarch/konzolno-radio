@@ -272,7 +272,7 @@ getGenre() {
     elif [ "$1" -eq "11" ]; then
        genre=("${CHR[@]}")
     else
-        echo "${red}Unknown genre${end}"
+        echo "${red}Няма такъв жанр${end}"
     fi
 }
 
