@@ -5,6 +5,14 @@
 # История
 #########
 #
+# 1.0.3 версия
+# автор: Ivaylo Kuzev
+#
+# Оправяне на некои правописни грешки във кода
+# Добавяне на проверка дали е инсталиран mplayer
+#
+# ----------------------------------------------------------------------------
+#
 # 1.0.2 версия
 # автор: Ivaylo Kuzev
 #
@@ -69,7 +77,7 @@ fi
 PROG="${0##*/}"
 
 # Текущата версия
-VERSION="1.0.2"
+VERSION="1.0.3"
 
 # Заглавен ред - показва се най отгоре, когато е стартирана програмата
 BANNER="${PROG} ${VERSION}"
@@ -167,7 +175,6 @@ NAMES=(
 "Hot Dance"
 "Радио Viva Bg"
 "Радио Реакция"
-"Радио ORV"
 )
 
 # Стрийминги
@@ -216,7 +223,6 @@ STREAMS=(
 "http://listen.hotget.net:8000/radio.m3u"
 "http://stream.radioextra-bg.net:8000/viva-eurodance.m3u"
 "http://reakcia.net/stream/stream.m3u"
-"http://www.orvmedia.com/radioorv.m3u"
 )
 
 # Жанрове
@@ -238,10 +244,10 @@ GENRES=(
 BGMUSIC=(0 16 34 38)
 BLACK=(34 38 39)
 DANCE=(6 20 25 37 40 41)
-POP=(3 4 7 8 9 10 12 21 35 37 44)
+POP=(3 4 7 8 9 10 12 21 35 37)
 ROCK=(1 2 13 17 19 21 26 27 43)
 RETRO=(9 20 33 41)
-VARIOUS=(5 15 19 35 42 44)
+VARIOUS=(5 15 19 35 42)
 HOUSE=(6 11 18 24)
 NEWS=(8 14 32)
 PROGRESSIVE=(22 23)
