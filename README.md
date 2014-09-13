@@ -9,13 +9,13 @@ konzolno-radio (конзолно-радио)
 Характеристики
 --------------
 
-- Написан на **bash**
-- Управление от линията на команди (терминал)
-- Не се нуждаете от **GUI** интерфейс да слушате музика
+- Повече от 40 радиостанции (български)
 - Съпорт за записване на любимите предавания на **.mp3** файл
-- Много бърз
+- Написан на `bash`
+- Управление от линията на команди (терминал)
+- Не се нуждаете от GUI интерфейс да слушате музика
 - Лесен за научаване и използване
-- **KISS** дизайн
+- KISS дизайн
 
 Зависимости
 -----------
@@ -29,24 +29,34 @@ konzolno-radio (конзолно-радио)
     $ wget --no-check-certificate https://github.com/ivoarch/konzolno-radio/archive/1.0.3.tar.gz
     $ tar -xvf 1.0.3.tar.gz
     $ cd /път/до/konzolno-radio-1.0.3/
-    $ make install
+    # make install
 
 Инсталация на git версията
 --------------------------
 
     $ git clone https://github.com/ivoarch/konzolno-radio
     $ cd /път/до/konzolno-radio/
-    $ make install
+    # make install
 
 По подразбиране `konzolno-radio` се инсталира в `/usr/local/bin`, ако искате да му промените пътя, редактирайте `Makefile`.
 
-Инсталирай от RPM пакет
+Инсталация за RedHat/Fedora/Centos
 -----------------------
 
-За _RedHat_ базираните дистрибуции, _Fedora/CentOS_ и тн..
+От терминал:
 
-- [konzolno-radio-1.0.3-1.noarch.rpm](https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/i386/repoview/konzolno-radio.html)
-- [ivorepo.repo](https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/ivorepo.repo)
+    $ cd /etc/yum.repos.d/
+    # wget -c https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/ivorepo.repo
+    # yum install konzolno-radio
+
+Със един клик:
+
+- [konzolno-radio-1.0.3-1.noarch.rpm](https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/i386/konzolno-radio-1.0.3-1.noarch.rpm)
+
+Инсталация за Debian/Ubuntu/Linux Mint
+------------------------
+
+**ОЧАКВАЙТЕ СКОРО...!!**
 
 Bugs
 ----
