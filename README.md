@@ -58,6 +58,11 @@ konzolno-radio (конзолно-радио)
 
 **ОЧАКВАЙТЕ СКОРО...!!**
 
+Инсталация за Arch linux/Manjaro
+----------------------------
+
+    $ yaourt -S konzolno-radio
+
 Bugs
 ----
 За всякакви грешки или заявки, пишете на [GitHub](https://github.com/ivoarch/konzolno-radio) [issue](https://github.com/ivoarch/konzolno-radio/issues).
