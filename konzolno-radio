@@ -120,7 +120,7 @@ cyn=$'\e[0;36m'
 end=$'\e[0m'
 
 # Плейър
-PLAY_COMMAND="mplayer -quiet -nolirc -cache 500 -cache-min 1 -prefer-ipv4 -noframedrop -playlist"
+PLAY_COMMAND="mplayer -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop -playlist"
 
 # Записвач
 DEFAULT_FILE="StreamDump"
@@ -298,7 +298,7 @@ elif [ "$1" = "-u" ]; then
     read URL
     echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
     echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
-    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за приглушен звук ${end}${ylw}'m'${end}"
+    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
     $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
         "(Name|Genre|Website|Bitrate|ICY Info)"
 # Списък на радио станции
@@ -321,7 +321,7 @@ elif [ "$1" = "-p" ]; then
         echo -e "${green}$BANNER${end}"
         echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
         echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
-        echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за приглушен звук ${end}${ylw}'m'${end}"
+        echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
         $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
             "(Name|Genre|Website|Bitrate|ICY Info)"
         exit $?
@@ -397,7 +397,7 @@ elif [ "$3" = "-p" ]; then
                     echo -e "${green}$BANNER${end}"
                     echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
                     echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
-                    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за приглушен звук ${end}${ylw}'m'${end}"
+                    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
                     $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
                         "(Name|Genre|Website|Bitrate|ICY Info)"
                     exit $?
