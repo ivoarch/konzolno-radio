@@ -296,6 +296,9 @@ elif [ "$1" = "-u" ]; then
     echo -e "${green}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радио станцията:${end} "
     read URL
+    echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
+    echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
+    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за приглушен звук ${end}${ylw}'m'${end}"
     $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
         "(Name|Genre|Website|Bitrate|ICY Info)"
 # Списък на радио станции
@@ -316,7 +319,9 @@ elif [ "$1" = "-l" ]; then
 elif [ "$1" = "-p" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
         echo -e "${green}$BANNER${end}"
-        echo -e "${blue}Натиснете q за да излезете${end}"
+        echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
+        echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
+        echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за приглушен звук ${end}${ylw}'m'${end}"
         $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
             "(Name|Genre|Website|Bitrate|ICY Info)"
         exit $?
@@ -390,7 +395,9 @@ elif [ "$1" = "-g" ]; then
 elif [ "$3" = "-p" ]; then
                 if [ -n "${genre[$4]}" ]; then
                     echo -e "${green}$BANNER${end}"
-                    echo -e "${blue}Press q to quit${end}"
+                    echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
+                    echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
+                    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за приглушен звук ${end}${ylw}'m'${end}"
                     $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
                         "(Name|Genre|Website|Bitrate|ICY Info)"
                     exit $?
