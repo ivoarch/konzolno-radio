@@ -23,8 +23,8 @@ konzolno-radio (конзолно-радио)
 - Използва `mplayer` за слушане/записване
 - Стандартните **UNIX** средства `sed`, `egrep`, `pr`
 
-Инсталация на последната стабилна версия (1.0.3)
----------------------------------------------------
+Инсталация от Source
+----------------------
 
     $ wget --no-check-certificate https://github.com/ivoarch/konzolno-radio/archive/1.0.3.tar.gz
     $ tar -xvf 1.0.3.tar.gz
@@ -43,7 +43,7 @@ konzolno-radio (конзолно-радио)
 Инсталация за RedHat/Fedora/Centos
 -----------------------
 
-От терминал:
+От терминал: _(препоръчително)_
 
     $ cd /etc/yum.repos.d/
     # wget -c https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/ivorepo.repo
@@ -56,7 +56,7 @@ konzolno-radio (конзолно-радио)
 Инсталация за Debian/Ubuntu/Linux Mint
 ------------------------
 
-От терминал:
+От терминал: _(препоръчително)_
 
     # echo "deb http://dl.bintray.com/etem/deb /" | sudo tee -a /etc/apt/sources.list
     # apt-get install konzolno-radio
