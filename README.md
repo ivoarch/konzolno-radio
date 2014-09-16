@@ -56,7 +56,14 @@ konzolno-radio (конзолно-радио)
 Инсталация за Debian/Ubuntu/Linux Mint
 ------------------------
 
-**ОЧАКВАЙТЕ СКОРО...!!**
+От терминал:
+
+    # echo "deb http://dl.bintray.com/etem/deb /" | sudo tee -a /etc/apt/sources.list
+    # apt-get install konzolno-radio
+
+Със един клик:
+
+- [konzolno-radio_1.0.3_all.deb](http://dl.bintray.com/etem/deb/konzolno-radio_1.0.3_all.deb)
 
 Инсталация за Arch linux/Manjaro
 ----------------------------
@@ -69,7 +76,7 @@ Bugs
 
 Благодарности
 --------------
-На Etem Hyusnev [@etem](https://github.com/etem) за неуморното тестване на приложението, по време на разработката.
+На Etem Hyusnev [@etem](https://github.com/etem) за помощта със дебиан пакета, и неуморното тестване на приложението.
 
 Лиценз
 ------
