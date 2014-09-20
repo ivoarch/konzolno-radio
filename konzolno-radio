@@ -113,11 +113,28 @@ EXAMPLES
      konzolno-radio -p 6 -- пуска шеста радио станция от списъка (Радио Maxx FM)
      konzolno-radio -r 6 -- записва .mp3 файл на шестата радио станция от списъка (Радио Maxx FM)
 
-     Пусни радио станция от спецефичен жанр.
+     Пусни радио станция от спецефичен жанр:
      konzolno-radio -g -l -- показва всички жанрове
      konzolno-radio -g 2 -l -- показва всички радио станции от жанр (Денс)
      konzolno-radio -g 2 -p 0 -- пуска първата радио станция от жанр (Денс) - (Радио Maxx FM)
      konzolno-radio -g 2 -r 0 -- записва .mp3 файл на първата радио станция от жанр (Денс) - (Радио Maxx FM)
+
+COMMANDS
+     mute       Изключване на звука
+     pause      Паузиране на радиото (при повторно натискане продължава възпроизвеждането)
+     stop       Спиране на радио станцията и излизане от програмата
+     voldown    Намаляване силата на звука
+     volup      Увеличаване силата на звука
+
+KEYBOARD CONTROL
+        m
+             Изключване на звука
+        p / SPACE
+             Паузиране на радиото (при повторно натискане продължава възпроизвеждането)
+        q / ESC
+             Спиране на радио станцията и излизане от програмата
+        9 и 0
+             Увеличаване/намаляване силата на звука
 
 AUTHOR
      Ivaylo Kuzev <ivkuzev [at] gmail [dot] com>
@@ -320,6 +337,17 @@ getGenre() {
 # Проверява аргументите
 if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
     print_help
+# ремоте контрол
+elif [ "$1" = "mute" ]; then
+    echo "mute" > $FIFO
+elif [ "$1" = "pause" ]; then
+    echo "pause" > $FIFO
+elif [ "$1" = "stop" ]; then
+    echo "quit" > $FIFO
+elif [ "$1" = "voldown" ]; then
+    echo "volume -20" > $FIFO
+elif [ "$1" = "volup" ]; then
+    echo "volume +20" > $FIFO
 # Изкарва версията
 elif [ "$1" = "-v" ]; then
     echo "${VERSION}"
