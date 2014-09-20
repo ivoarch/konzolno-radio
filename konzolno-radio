@@ -143,15 +143,23 @@ pur=$'\e[0;35m'
 cyn=$'\e[0;36m'
 end=$'\e[0m'
 
+# Създай фифо файл за ремоте контрол
+FIFO="/tmp/mplayer.fifo"
+if [ ! -p $FIFO ] ; then
+    mkfifo $FIFO ;
+fi
+
 # Плейър
-PLAY_COMMAND="mplayer -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop -playlist"
+PLAY_COMMAND="mplayer \
+-idle -input file=$FIFO -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop -playlist"
 
 # Записвач
 DEFAULT_FILE="StreamDump"
 FILETYPE="mp3"
 POSTFIX=$(date +%y-%m-%d_%H:%M)
 LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
-RECORDER="mplayer -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
+RECORDER="mplayer \
+-nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
 
 # Имена на радио станции
 NAMES=(
