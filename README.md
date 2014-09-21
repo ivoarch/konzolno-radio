@@ -21,6 +21,7 @@ konzolno-radio (конзолно-радио)
 -----------
 
 - Използва `mplayer` за слушане/записване
+- Нуждаете се от `curl` ако искате да актуализирате версията през опциите `-u|--update` на програмата
 - Стандартните **UNIX** средства `sed`, `egrep`, `pr`, `less`
 
 Ръководство
@@ -31,9 +32,9 @@ konzolno-radio (конзолно-радио)
 Инсталация от Source
 ----------------------
 
-    $ wget --no-check-certificate https://github.com/ivoarch/konzolno-radio/archive/1.0.3.tar.gz
-    $ tar -xvf 1.0.3.tar.gz
-    $ cd /път/до/konzolno-radio-1.0.3/
+    $ wget --no-check-certificate https://github.com/ivoarch/konzolno-radio/archive/1.0.4.tar.gz
+    $ tar -xvf 1.0.4.tar.gz
+    $ cd /път/до/konzolno-radio-1.0.4/
     # make install
 
 Инсталация на git версията
@@ -56,7 +57,7 @@ konzolno-radio (конзолно-радио)
 
 Със един клик:
 
-- [konzolno-radio-1.0.3-1.noarch.rpm](https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/i386/konzolno-radio-1.0.3-1.noarch.rpm)
+- [konzolno-radio-1.0.4-1.noarch.rpm](https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/i386/konzolno-radio-1.0.4-1.noarch.rpm)
 
 Инсталация за Debian/Ubuntu/Linux Mint
 ------------------------
@@ -68,7 +69,7 @@ konzolno-radio (конзолно-радио)
 
 Със един клик:
 
-- [konzolno-radio_1.0.3_all.deb](http://dl.bintray.com/etem/deb/konzolno-radio_1.0.3_all.deb)
+- [konzolno-radio_1.0.4_all.deb](http://dl.bintray.com/etem/deb/konzolno-radio_1.0.4_all.deb)
 
 Инсталация за Arch linux/Manjaro
 ----------------------------
