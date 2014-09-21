@@ -82,6 +82,32 @@ VERSION="1.0.3"
 # Заглавен ред - показва се най отгоре, когато е стартирана програмата
 BANNER="${PROG} ${VERSION}"
 
+# Обнови версията (ако има налична такава)
+LAST_VERSION="$(curl -silent https://github.com/ivoarch/konzolno-radio/releases/latest | \
+        grep -i location: | sed 's/^.*\/tag\/\([^\/]*\)\r$/\1/')"
+URI="https://github.com/ivoarch/konzolno-radio/archive/${LAST_VERSION}.tar.gz"
+
+update(){
+    if [[ $VERSION != $LAST_VERSION ]]; then
+        echo -e "${green}[Добри новини] Налична е нова версия - $LAST_VERSION${end}"
+        echo -n "${blue}Искали да актуализирате? (y/n):${end} "
+        read answer
+        if [[ $answer == "y" ]];then
+            pushd "$(mktemp -d "/tmp/tmp.XXXXXXXXXX")"
+            curl -O -L "$URI"
+            tar -xvf "$LAST_VERSION".tar.gz
+            cd konzolno-radio-"$LAST_VERSION"
+            make install || return 1
+            popd
+            echo -e "${green}Поздравления! Вашата версия беше актуализирана на $LAST_VERSION${end}"
+        else
+            exit 1
+        fi
+    else
+        echo -e "${green}Поздравления! Имате инсталирана последната версия $VERSION${end}"
+    fi
+}
+
 # Изкарва помощтен текст
 print_help() {
     cat | less << 'EOD'
@@ -102,10 +128,10 @@ OPTIONS
      -l        Показва списък на всички радиостанции.
      -p        Пусни радиостанция от списъка.
      -g        Покажи списък на наличните жанрове. (Комбинирайте със опция -l)
-     -u        Въведете URL адреса за стрийминг радиостанцията, която желаете.
+     -s        Въведете URL адреса за стрийминг радиостанцията, която желаете.
      -r        Запишете mp3 радио стрийминг на файл.
      [-h | --help] Показва този помощен текст.
-     -v        Покажи информация за версията.
+     [-u | --update] Проверява за нова версия, и ако има такава я инсталира. (трябва да сте root за да инсталирате)
 
 EXAMPLES
      Пусни радио станция:
@@ -153,12 +179,13 @@ EOD
 
 # Цветен текст
 red=$'\e[0;31m'
-green=$'\e[1;32m'
+green=$'\e[0;32m'
 ylw=$'\e[0;33m'
 blue=$'\e[0;34m'
 pur=$'\e[0;35m'
 cyn=$'\e[0;36m'
 end=$'\e[0m'
+greenb=$'\e[1;32m'
 
 # Създай фифо файл за ремоте контрол
 FIFO="/tmp/mplayer.fifo"
@@ -337,7 +364,7 @@ getGenre() {
 # Проверява аргументите
 if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
     print_help
-# ремоте контрол
+# Ремоте контрол
 elif [ "$1" = "mute" ]; then
     echo "mute" > $FIFO
 elif [ "$1" = "pause" ]; then
@@ -348,12 +375,12 @@ elif [ "$1" = "voldown" ]; then
     echo "volume -20" > $FIFO
 elif [ "$1" = "volup" ]; then
     echo "volume +20" > $FIFO
-# Изкарва версията
-elif [ "$1" = "-v" ]; then
-    echo "${VERSION}"
+# Информация за налична нова версия
+elif [[ $1 == "--update" ]] || [[ $1 == "-u" ]]; then
+    update
 # Въведете url на радиостанция
-elif [ "$1" = "-u" ]; then
-    echo -e "${green}$BANNER${end}"
+elif [ "$1" = "-s" ]; then
+    echo -e "${greenb}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радиостанцията:${end} "
     read URL
     echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
@@ -363,7 +390,7 @@ elif [ "$1" = "-u" ]; then
         "(Name|Genre|Website|Bitrate|ICY Info)"
 # Списък на радиостанции
 elif [ "$1" = "-l" ]; then
-    echo -e "${green}$BANNER${end}"
+    echo -e "${greenb}$BANNER${end}"
     echo -e "${blue}>>>  ${pur}Списък на всички радиостанции${end}${blue}  <<<${end}"
     i=0
     while [ "$i" -lt "${#NAMES[*]}" ]; do
@@ -378,7 +405,7 @@ elif [ "$1" = "-l" ]; then
 # Пусни радио от списъка
 elif [ "$1" = "-p" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
-        echo -e "${green}$BANNER${end}"
+        echo -e "${greenb}$BANNER${end}"
         echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
         echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
         echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
@@ -392,7 +419,7 @@ elif [ "$1" = "-p" ]; then
 # Записва радиостанция от списъка
 elif [ "$1" = "-r" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
-        echo -e "${green}$BANNER${end}"
+        echo -e "${greenb}$BANNER${end}"
         echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
         read LENGTH
         $RECORDER ${STREAMS[$2]} >/dev/null 2>&1 &
@@ -408,7 +435,7 @@ fi
 elif [ "$1" = "-g" ]; then
     # Списък на жанрове
     if [ "$2" = "-l" ]; then
-        echo -e "${green}$BANNER${end}"
+        echo -e "${greenb}$BANNER${end}"
         echo -e "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
         i=0
         while [ "$i" -lt "${#GENRES[*]}" ]; do
@@ -424,7 +451,7 @@ elif [ "$1" = "-g" ]; then
         if [ "$2" -ge "0" -a "$2" -lt "${#GENRES[*]}" ]; then
             getGenre "$2"
             if [ -z "$3" -o "$3" = "-l" ]; then
-                echo -e "${green}$BANNER${end}"
+                echo -e "${greenb}$BANNER${end}"
                 echo -e "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
                 i=0
                 while [ "$i" -lt "${#genre[*]}" ]; do
@@ -439,7 +466,7 @@ elif [ "$1" = "-g" ]; then
 # запиши от жанр
             elif [ "$3" = "-r" ]; then
                 if [ -n "${genre[$4]}" ]; then
-                    echo -e "${green}$BANNER${end}"
+                    echo -e "${greenb}$BANNER${end}"
                     echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
                     read LENGTH
                     $RECORDER ${STREAMS[${genre[$4]}]} >/dev/null 2>&1 &
@@ -454,7 +481,7 @@ elif [ "$1" = "-g" ]; then
 # пусни от жанр
 elif [ "$3" = "-p" ]; then
                 if [ -n "${genre[$4]}" ]; then
-                    echo -e "${green}$BANNER${end}"
+                    echo -e "${greenb}$BANNER${end}"
                     echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
                     echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
                     echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
