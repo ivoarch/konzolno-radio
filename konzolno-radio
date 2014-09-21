@@ -140,13 +140,13 @@ DESCRIPTION
      онлайн в Gnu/Linux (с помощта на Mplayer).
 
 OPTIONS
-     -l        Показва списък на всички радиостанции.
-     -p        Пусни радиостанция от списъка.
-     -g        Покажи списък на наличните жанрове. (Комбинирайте със опция -l)
-     -s        Въведете URL адреса за стрийминг радиостанцията, която желаете.
-     -r        Запишете mp3 радио стрийминг на файл.
-     [-h | --help] Показва този помощен текст.
-     [-u | --update] Проверява за нова версия, и ако има такава я инсталира. (трябва да сте root за да инсталирате)
+     [-l | --list]    Показва списък на всички радиостанции.
+     [-p | --play]    Пусни радиостанция от списъка.
+     [-g | --genre]   Покажи списък на наличните жанрове. (Комбинирайте със опция -l)
+     [-s | --stream]  Въведете URL адреса за стрийминг радиостанцията, която желаете.
+     [-r | --record]  Запишете mp3 радио стрийминг на файл.
+     [-h | --help]    Показва този помощен текст.
+     [-u | --update]  Проверява за нова версия, и ако има такава я инсталира. (трябва да сте root за да инсталирате)
 
 EXAMPLES
      Пусни радио станция:
@@ -391,10 +391,10 @@ elif [ "$1" = "voldown" ]; then
 elif [ "$1" = "volup" ]; then
     echo "volume +20" > $FIFO
 # Информация за налична нова версия
-elif [[ $1 == "--update" ]] || [[ $1 == "-u" ]]; then
+elif [ "$1" == "--update" ] || [ "$1" == "-u" ]; then
     update
 # Въведете url на радиостанция
-elif [ "$1" = "-s" ]; then
+elif [ "$1" = "--stream" ] || [ "$1" == "-s" ]; then
     echo -e "${greenb}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радиостанцията:${end} "
     read URL
@@ -404,7 +404,7 @@ elif [ "$1" = "-s" ]; then
     $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
         "(Name|Genre|Website|Bitrate|ICY Info)"
 # Списък на радиостанции
-elif [ "$1" = "-l" ]; then
+elif [ "$1" = "--list" ] || [ "$1" == "-l" ]; then
     echo -e "${greenb}$BANNER${end}"
     echo -e "${blue}>>>  ${pur}Списък на всички радиостанции${end}${blue}  <<<${end}"
     i=0
@@ -418,7 +418,7 @@ elif [ "$1" = "-l" ]; then
         ((i++))
     done |  pr -3 -l 24 -t -T -J
 # Пусни радио от списъка
-elif [ "$1" = "-p" ]; then
+elif [ "$1" = "--play" ] || [ "$1" == "-p" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
         echo -e "${greenb}$BANNER${end}"
         echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
@@ -432,7 +432,7 @@ elif [ "$1" = "-p" ]; then
         exit 1
     fi
 # Записва радиостанция от списъка
-elif [ "$1" = "-r" ]; then
+elif [ "$1" = "--record" ] || [ "$1" == "-r" ]; then
     if [ -n "${STREAMS[$2]}" ]; then
         echo -e "${greenb}$BANNER${end}"
         echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
@@ -447,9 +447,9 @@ elif [ "$1" = "-r" ]; then
         exit 1
 fi
 # Жанрове
-elif [ "$1" = "-g" ]; then
+elif [ "$1" = "--genre" ] || [ "$1" == "-g" ]; then
     # Списък на жанрове
-    if [ "$2" = "-l" ]; then
+    if [ "$2" = "--list" ] || [ "$2" == "-l" ]; then
         echo -e "${greenb}$BANNER${end}"
         echo -e "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
         i=0
@@ -465,7 +465,7 @@ elif [ "$1" = "-g" ]; then
     elif [[ $2 =~ ^[0-9]+$ ]]; then
         if [ "$2" -ge "0" -a "$2" -lt "${#GENRES[*]}" ]; then
             getGenre "$2"
-            if [ -z "$3" -o "$3" = "-l" ]; then
+            if [ -z "$3" -o "$3" = "--list" ] || [ -z "$3" -o "$3" = "-l" ]; then
                 echo -e "${greenb}$BANNER${end}"
                 echo -e "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
                 i=0
@@ -479,7 +479,7 @@ elif [ "$1" = "-g" ]; then
                     ((i++))
                 done
 # запиши от жанр
-            elif [ "$3" = "-r" ]; then
+            elif [ "$3" = "--record" ] || [ "$3" == "-r" ]; then
                 if [ -n "${genre[$4]}" ]; then
                     echo -e "${greenb}$BANNER${end}"
                     echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
@@ -493,8 +493,8 @@ elif [ "$1" = "-g" ]; then
                     echo "${red}Моля, вижте списъка на наличните радиостанции от този жанр.${end}"
                     exit 1
                 fi
-# пусни от жанр
-elif [ "$3" = "-p" ]; then
+            # пусни от жанр
+            elif [ "$3" = "--play" ] || [ "$3" == "-p" ]; then
                 if [ -n "${genre[$4]}" ]; then
                     echo -e "${greenb}$BANNER${end}"
                     echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
