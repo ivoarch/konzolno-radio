@@ -1,6 +1,6 @@
 PROG = konzolno-radio
 VERSION = $(shell grep ^VERSION konzolno-radio | cut -d= -f2)
-INSTALL_DIR = /usr/local
+INSTALL_DIR = /usr
 
 all:
 	@echo 'try: '

@@ -112,6 +112,8 @@ update(){
             cd konzolno-radio-"$LAST_VERSION"
             make install || return 1
             popd
+            # по добро решение?
+            sed -i "s/${VERSION}/${LAST_VERSION}/g" /usr/bin/"$PROG"
             echo -e "${green}Поздравления! Вашата версия беше актуализирана на $LAST_VERSION${end}"
         else
             exit 1

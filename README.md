@@ -44,8 +44,6 @@ konzolno-radio (конзолно-радио)
     $ cd /път/до/konzolno-radio/
     # make install
 
-По подразбиране `konzolno-radio` се инсталира в `/usr/local/bin`, ако искате да му промените пътя, редактирайте `Makefile`.
-
 Инсталация за RedHat/Fedora/Centos
 -----------------------
 
