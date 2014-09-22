@@ -266,6 +266,8 @@ NAMES=(
 "Hot Dance"
 "Радио Viva Bg"
 "Радио Реакция"
+"Радио Варна"
+"Радио Хоризонт"
 )
 
 # Стрийминги
@@ -314,6 +316,8 @@ STREAMS=(
 "http://listen.hotget.net:8000/radio.m3u"
 "http://stream.radioextra-bg.net:8000/viva-eurodance.m3u"
 "http://reakcia.net/stream/stream.m3u"
+"http://broadcast.masters.bg:8000/live.m3u"
+"http://stream.bnr.bg:8002/horizont.mp3.m3u"
 )
 
 # Жанрове
@@ -338,7 +342,7 @@ DANCE=(6 20 25 37 40 41)
 POP=(3 4 7 8 9 10 12 21 35 37)
 ROCK=(1 2 13 17 19 21 26 27 43)
 RETRO=(9 20 33 41)
-VARIOUS=(5 15 19 35 42)
+VARIOUS=(5 15 19 35 42 44 45)
 HOUSE=(6 11 18 24)
 NEWS=(8 14 32)
 PROGRESSIVE=(22 23)
