@@ -14,6 +14,7 @@ konzolno-radio (конзолно-радио)
 - Написан на `bash`
 - Управление от линията на команди (терминал)
 - Не се нуждаете от GUI интерфейс да слушате музика
+- Ремоте контрол през fifo
 - Лесен за научаване и използване
 - KISS дизайн
 
@@ -32,9 +33,9 @@ konzolno-radio (конзолно-радио)
 Инсталация от Source
 ----------------------
 
-    $ wget --no-check-certificate https://github.com/ivoarch/konzolno-radio/archive/1.0.4.tar.gz
-    $ tar -xvf 1.0.4.tar.gz
-    $ cd /път/до/konzolno-radio-1.0.4/
+    $ wget --no-check-certificate https://github.com/ivoarch/konzolno-radio/archive/1.0.5.tar.gz
+    $ tar -xvf 1.0.5.tar.gz
+    $ cd /път/до/konzolno-radio-1.0.5/
     # make install
 
 Инсталация на git версията
@@ -55,7 +56,7 @@ konzolno-radio (конзолно-радио)
 
 Със един клик:
 
-- [konzolno-radio-1.0.4-1.noarch.rpm](https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/i386/konzolno-radio-1.0.4-1.noarch.rpm)
+- [konzolno-radio-1.0.5-1.noarch.rpm](https://dl.dropboxusercontent.com/u/66222581/repo/ivorepo/i386/konzolno-radio-1.0.5-1.noarch.rpm)
 
 Инсталация за Debian/Ubuntu/Linux Mint
 ------------------------
@@ -67,7 +68,7 @@ konzolno-radio (конзолно-радио)
 
 Със един клик:
 
-- [konzolno-radio_1.0.4_all.deb](http://dl.bintray.com/etem/deb/konzolno-radio_1.0.4_all.deb)
+- [konzolno-radio_1.0.5_all.deb](http://dl.bintray.com/etem/deb/konzolno-radio_1.0.5_all.deb)
 
 Инсталация за Arch linux/Manjaro
 ----------------------------
