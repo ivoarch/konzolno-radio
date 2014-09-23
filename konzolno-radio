@@ -204,8 +204,9 @@ greenb=$'\e[1;32m'
 
 # Създай фифо файл за ремоте контрол
 FIFO="/tmp/mplayer.fifo"
-if [ ! -p $FIFO ] ; then
-    mkfifo $FIFO ;
+if [ ! -p $FIFO ]; then
+    rm $FIFO 2>/dev/null
+    mkfifo $FIFO
 fi
 
 # Плейър
