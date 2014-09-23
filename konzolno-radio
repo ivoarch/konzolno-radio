@@ -216,7 +216,7 @@ PLAY_COMMAND="mplayer \
 # Записвач
 DEFAULT_FILE="StreamDump"
 FILETYPE="mp3"
-POSTFIX=$(date +%y-%m-%d_%H:%M)
+POSTFIX="$(date +%y-%m-%d_%H:%M)"
 LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
 RECORDER="mplayer \
 -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
@@ -483,7 +483,7 @@ elif [ "$1" = "--genre" ] || [ "$1" == "-g" ]; then
                         -e "s/[^[:blank:]]\{1,\}/$cyn&$end/6"
                     ((i++))
                 done
-# запиши от жанр
+            # запиши от жанр
             elif [ "$3" = "--record" ] || [ "$3" == "-r" ]; then
                 if [ -n "${genre[$4]}" ]; then
                     echo -e "${greenb}$BANNER${end}"
