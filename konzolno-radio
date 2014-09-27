@@ -247,7 +247,7 @@ NAMES=(
 "Радио Nova"
 "Стар ФМ"
 "Фокус"
-"Джаз ФМ радио"
+"Джаз ФМ"
 "Радио Зорана"
 "Радио Тангра"
 "Traffic радио"
@@ -278,12 +278,13 @@ NAMES=(
 "Радио Реакция"
 "Радио Варна"
 "Радио Хоризонт"
+"Радио 1"
 )
 
 # Стрийминги
 STREAMS=(
 "http://80.72.68.217/bgradio.ogg.m3u"
-"http://80.72.68.217/radio1rock_low.ogg"
+"http://80.72.68.217/radio1rock.ogg.m3u"
 "http://ng.btv.bg/m3u/zrock.m3u"
 "http://80.72.68.217/nrj.ogg.m3u"
 "http://city.bg/files/RADIO_CITY.pls"
@@ -328,6 +329,7 @@ STREAMS=(
 "http://reakcia.net/stream/stream.m3u"
 "http://broadcast.masters.bg:8000/live.m3u"
 "http://stream.bnr.bg:8002/horizont.mp3.m3u"
+"http://80.72.68.217/radio164.m3u"
 )
 
 # Жанрове
@@ -349,7 +351,7 @@ GENRES=(
 BGMUSIC=(0 16 34 38)
 BLACK=(34 38 39)
 DANCE=(6 20 25 37 40 41)
-POP=(3 4 7 8 9 10 12 21 35 37)
+POP=(3 4 7 8 9 10 12 21 35 37 46)
 ROCK=(1 2 13 17 19 21 26 27 43)
 RETRO=(9 20 33 41)
 VARIOUS=(5 15 19 35 42 44 45)
