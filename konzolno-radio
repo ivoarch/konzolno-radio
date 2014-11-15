@@ -320,7 +320,7 @@ STREAMS=(
 "http://reakcia.net/stream/stream.m3u"
 "http://broadcast.masters.bg:8000/live.m3u"
 "http://stream.bnr.bg:8002/horizont.mp3.m3u"
-"http://80.72.68.217/radio164.m3u"
+"http://149.13.0.80/radio1.ogg"
 "http://a1.virtualradio.eu:8000/powerfm.mp3.m3u"
 "http://stereo.wavestreamer.com:1774/listen.pls?sid=1"
 "http://79.98.108.173:8010/radio.m3u"
