@@ -218,18 +218,6 @@ if [ ! -p $FIFO ]; then
     mkfifo $FIFO
 fi
 
-# Плейър
-PLAY_COMMAND="mplayer \
--idle -input file=$FIFO -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop -playlist"
-
-# Записвач
-DEFAULT_FILE="StreamDump"
-FILETYPE="mp3"
-POSTFIX="$(date +%y-%m-%d_%H:%M)"
-LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
-RECORDER="mplayer \
--nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
-
 # Имена на радиостанции
 NAMES=(
 "БГрадио"
@@ -287,7 +275,7 @@ NAMES=(
 # Стрийминги
 STREAMS=(
 "http://149.13.0.80/bgradio128.m3u"
-"http://80.72.68.217/radio1rock.ogg.m3u"
+"http://149.13.0.81/radio1rock.ogg"
 "http://ng.btv.bg/m3u/zrock.m3u"
 "http://80.72.68.217/nrj.ogg.m3u"
 "http://city.bg/files/RADIO_CITY.pls"
@@ -397,6 +385,30 @@ getGenre() {
         echo "${red}Няма такъв жанр${end}"
     fi
 }
+
+# Плейър
+# Проверете за формати и тогава реши дали ще стартира с -playlist или не.
+if echo ${STREAMS[$2]} | egrep "(.pls|.asx|.m3u)" > /dev/null 2>&1 ; then
+PLAY_COMMAND="mplayer \
+-idle -input file=$FIFO -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop -playlist"
+elif echo ${STREAMS[$2]} | egrep -i "(.flac|.wma|.mms|.wmv|.ogg|.avi|.aac|.mov|.flv|.mpg|.mpeg|.asf|rtsp://|mms://|.rm)" > /dev/null 2>&1 ; then
+PLAY_COMMAND="mplayer \
+-idle -input file=$FIFO -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop"
+fi
+
+# Записвач
+DEFAULT_FILE="StreamDump"
+FILETYPE="mp3"
+POSTFIX="$(date +%y-%m-%d_%H:%M)"
+LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
+# Проверете за формати и тогава реши дали ще стартира с -playlist или не.
+if echo ${STREAMS[$2]} | egrep "(.pls|.asx|.m3u)" > /dev/null 2>&1 ; then
+RECORDER="mplayer \
+-nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
+elif echo ${STREAMS[$2]} | egrep -i "(.flac|.wma|.mms|.wmv|.ogg|.avi|.aac|.mov|.flv|.mpg|.mpeg|.asf|rtsp://|mms://|.rm)" > /dev/null 2>&1 ; then
+RECORDER="mplayer \
+-nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop"
+fi
 
 # Проверява аргументите
 if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
