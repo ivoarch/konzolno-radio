@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # konzolno-radio - за слушане на български радиостанции онлайн в GNU/Linux.
 
 ###############
