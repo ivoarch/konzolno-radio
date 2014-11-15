@@ -4,6 +4,15 @@
 ###############
 # История
 #########
+#
+# 1.0.6 версия
+# автор: Ivaylo Kuzev
+#
+# Оправени са адресите на някои стрийминги - Радио 1 рок, Veronika, Energy, Балканско радио
+# Вече се проверява формата на стрийминг файла ,и тогава се решава дали да стартира плейъра със опция (-playlist) или не.
+# Добавени са 4 нови радиостанции - PowerFM, Радио КуКу, Твоето Радио, Радио 1
+# ----------------------------------------------------------------------------
+#
 # 1.0.5 версия
 # автор: Ivaylo Kuzev
 #
@@ -24,7 +33,6 @@
 # Оправени са на некои грешки относно изписването на некои радиостанции
 # Вече радиото не спира, ако интернета умре за секунда/две - (автоматично се рестартира)
 # Добавено е инфо за основни клавиши (когато изберете некое радио)
-#
 # ----------------------------------------------------------------------------
 #
 # 1.0.3 версия
@@ -32,7 +40,6 @@
 #
 # Оправяне на некои правописни грешки във кода
 # Добавяне на проверка дали е инсталиран mplayer
-#
 # ----------------------------------------------------------------------------
 #
 # 1.0.2 версия
@@ -52,7 +59,6 @@
 # Актуализирани и добавяне нови радиостанции
 # Добавяне на цветен изход плюс други черешки по скрипта
 # Добавен изход на български език
-#
 # ----------------------------------------------------------------------------
 #
 # 1.0.0 версия
@@ -99,7 +105,7 @@ fi
 PROG="${0##*/}"
 
 # Текущата версия
-VERSION="1.0.5"
+VERSION="1.0.6"
 
 # Заглавен ред - показва се най отгоре, когато е стартирана програмата
 BANNER="${PROG} ${VERSION}"
@@ -220,126 +226,126 @@ fi
 
 # Имена на радиостанции
 NAMES=(
-"БГрадио"
-"Радио 1 рок"
-"Z-Rock"
-"Energy"
-"Радио City"
-"Радио Fresh"
-"Maxx FM"
-"Радио N-Joy"
-"BTV Радио"
-"Melody"
-"Радио FM+"
-"Алфа радио"
-"Радио Nova"
-"Стар ФМ"
-"Фокус"
-"Джаз ФМ"
-"Зорана"
-"Радио Тангра"
-"Traffic радио"
-"I Hate Mondays"
-"Радио Екстра"
-"Радио vis-vitalis"
-"Vibes радио"
-"Eilo - progressive"
-"Eilo - house"
-"Радио Belisimo"
-"24x7 Rock радио"
-"Ghost Rider Radio"
-"Радио Вероника"
-"Радио Веселина"
-"Балканско радио"
-"Радио Фолк Бг"
-"Дарик радио"
-"Дарик носталджи"
-"Радио PartyStyle"
-"KatraFM"
-"Радио Мая"
-"MFM Hitradio"
-"VoodooNet"
-"YAKATA RABOTA"
-"Dee Jay"
-"Hot Dance"
-"Радио Viva Bg"
-"Радио Реакция"
-"Радио Варна"
-"Радио Хоризонт"
-"Радио 1"
-"PowerFM"
-"Радио КуКу"
-"Твоето радио"
+    "БГрадио"
+    "Радио 1 рок"
+    "Z-Rock"
+    "Energy"
+    "Радио City"
+    "Радио Fresh"
+    "Maxx FM"
+    "Радио N-Joy"
+    "BTV Радио"
+    "Melody"
+    "Радио FM+"
+    "Алфа радио"
+    "Радио Nova"
+    "Стар ФМ"
+    "Фокус"
+    "Джаз ФМ"
+    "Зорана"
+    "Радио Тангра"
+    "Traffic радио"
+    "I Hate Mondays"
+    "Радио Екстра"
+    "Радио vis-vitalis"
+    "Vibes радио"
+    "Eilo - progressive"
+    "Eilo - house"
+    "Радио Belisimo"
+    "24x7 Rock радио"
+    "Ghost Rider Radio"
+    "Радио Вероника"
+    "Радио Веселина"
+    "Балканско радио"
+    "Радио Фолк Бг"
+    "Дарик радио"
+    "Дарик носталджи"
+    "Радио PartyStyle"
+    "KatraFM"
+    "Радио Мая"
+    "MFM Hitradio"
+    "VoodooNet"
+    "YAKATA RABOTA"
+    "Dee Jay"
+    "Hot Dance"
+    "Радио Viva Bg"
+    "Радио Реакция"
+    "Радио Варна"
+    "Радио Хоризонт"
+    "Радио 1"
+    "PowerFM"
+    "Радио КуКу"
+    "Твоето радио"
 )
 
 # Стрийминги
 STREAMS=(
-"http://149.13.0.80/bgradio128.m3u"
-"http://149.13.0.81/radio1rock.ogg"
-"http://ng.btv.bg/m3u/zrock.m3u"
-"http://149.13.0.80/nrj.ogg"
-"http://city.bg/files/RADIO_CITY.pls"
-"http://193.108.24.21:8000/fresh.m3u"
-"http://play.radiomaxxfm.com/maxx.m3u"
-"http://ng.btv.bg/m3u/njoy.m3u"
-"http://ng.btv.bg/m3u/btvradio.m3u"
-"http://ng.btv.bg/m3u/melody.m3u"
-"http://www.slusham.com/radio/fmplus.m3u"
-"http://188.126.1.25:8000/AlphaRadio.m3u"
-"http://149.13.0.81/nova.ogg"
-"http://pulsar.atlantis.bg:8000/starfm.m3u"
-"http://online.focus-radio.net:8100/sofia.m3u"
-"http://ng.btv.bg/m3u/jazzfm.m3u"
-"http://streaming.gesbg.com/zorana.pls"
-"http://stream-02.radiotangra.com:8000/Tangra-high.m3u"
-"http://radio.networx-bg.com:8002/listen.pls"
-"http://77.70.53.35:8000/listen.pls"
-"http://play.radioextra.org/extra.m3u"
-"http://online.vvitalis.com/vis-vitalis.m3u"
-"http://195.24.54.14:8000/listen.pls"
-"http://eilo.org:8000/progressive.m3u"
-"http://eilo.org:8000/house.m3u"
-"http://82.103.79.63:7090/listen.pls"
-"http://193.107.70.107:8000/stream.ogg.m3u"
-"http://onlineradio.inbulgaria.info/link.php\?id\=8981"
-"http://149.13.0.80/veronika.ogg"
-"http://www.slusham.com/radio/veselina.m3u"
-"http://stream.balkanskoradio.com/live.mp3.m3u"
-"http://folkbg.net/folkbg.net.m3u"
-"http://slusham.com/radio/darik.m3u"
-"http://dariknostalgie.bg/wp-content/uploads/nostalgie.m3u"
-"http://radiocp.novahost.bg:2199/tunein/radio162.pls"
-"http://www.katrafm.com/katrafm_mp3pro.m3u"
-"http://mail.rntel.com:9000/listen.pls"
-"http://www.mfmhitradio.net/mfm.m3u"
-"http://voodoonet.biz:8000/listen.pls"
-"http://212.117.39.164:8000/listen.pls"
-"http://radiodeejay.eu:8000/live.m3u"
-"http://listen.hotget.net:8000/radio.m3u"
-"http://stream.radioextra-bg.net:8000/viva-eurodance.m3u"
-"http://reakcia.net/stream/stream.m3u"
-"http://broadcast.masters.bg:8000/live.m3u"
-"http://stream.bnr.bg:8002/horizont.mp3.m3u"
-"http://149.13.0.80/radio1.ogg"
-"http://a1.virtualradio.eu:8000/powerfm.mp3.m3u"
-"http://stereo.wavestreamer.com:1774/listen.pls?sid=1"
-"http://79.98.108.173:8010/radio.m3u"
+    "http://149.13.0.80/bgradio128.m3u"
+    "http://149.13.0.81/radio1rock.ogg"
+    "http://ng.btv.bg/m3u/zrock.m3u"
+    "http://149.13.0.80/nrj.ogg"
+    "http://city.bg/files/RADIO_CITY.pls"
+    "http://193.108.24.21:8000/fresh.m3u"
+    "http://play.radiomaxxfm.com/maxx.m3u"
+    "http://ng.btv.bg/m3u/njoy.m3u"
+    "http://ng.btv.bg/m3u/btvradio.m3u"
+    "http://ng.btv.bg/m3u/melody.m3u"
+    "http://www.slusham.com/radio/fmplus.m3u"
+    "http://188.126.1.25:8000/AlphaRadio.m3u"
+    "http://149.13.0.81/nova.ogg"
+    "http://pulsar.atlantis.bg:8000/starfm.m3u"
+    "http://online.focus-radio.net:8100/sofia.m3u"
+    "http://ng.btv.bg/m3u/jazzfm.m3u"
+    "http://streaming.gesbg.com/zorana.pls"
+    "http://stream-02.radiotangra.com:8000/Tangra-high.m3u"
+    "http://radio.networx-bg.com:8002/listen.pls"
+    "http://77.70.53.35:8000/listen.pls"
+    "http://play.radioextra.org/extra.m3u"
+    "http://online.vvitalis.com/vis-vitalis.m3u"
+    "http://195.24.54.14:8000/listen.pls"
+    "http://eilo.org:8000/progressive.m3u"
+    "http://eilo.org:8000/house.m3u"
+    "http://82.103.79.63:7090/listen.pls"
+    "http://193.107.70.107:8000/stream.ogg.m3u"
+    "http://onlineradio.inbulgaria.info/link.php\?id\=8981"
+    "http://149.13.0.80/veronika.ogg"
+    "http://www.slusham.com/radio/veselina.m3u"
+    "http://stream.balkanskoradio.com/live.mp3.m3u"
+    "http://folkbg.net/folkbg.net.m3u"
+    "http://slusham.com/radio/darik.m3u"
+    "http://dariknostalgie.bg/wp-content/uploads/nostalgie.m3u"
+    "http://radiocp.novahost.bg:2199/tunein/radio162.pls"
+    "http://www.katrafm.com/katrafm_mp3pro.m3u"
+    "http://mail.rntel.com:9000/listen.pls"
+    "http://www.mfmhitradio.net/mfm.m3u"
+    "http://voodoonet.biz:8000/listen.pls"
+    "http://212.117.39.164:8000/listen.pls"
+    "http://radiodeejay.eu:8000/live.m3u"
+    "http://listen.hotget.net:8000/radio.m3u"
+    "http://stream.radioextra-bg.net:8000/viva-eurodance.m3u"
+    "http://reakcia.net/stream/stream.m3u"
+    "http://broadcast.masters.bg:8000/live.m3u"
+    "http://stream.bnr.bg:8002/horizont.mp3.m3u"
+    "http://149.13.0.80/radio1.ogg"
+    "http://a1.virtualradio.eu:8000/powerfm.mp3.m3u"
+    "http://stereo.wavestreamer.com:1774/listen.pls?sid=1"
+    "http://79.98.108.173:8010/radio.m3u"
 )
 
 # Жанрове
 GENRES=(
-"Българска музика"
-"ХипХоп и R&B"
-"Денс"
-"Поп"
-"Рок и Хеви метъл"
-"Ретро"
-"Разни"
-"Хаус"
-"Новини"
-"Прогресив"
-"Поп Фолк"
-"CHR"
+    "Българска музика"
+    "ХипХоп и R&B"
+    "Денс"
+    "Поп"
+    "Рок и Хеви метъл"
+    "Ретро"
+    "Разни"
+    "Хаус"
+    "Новини"
+    "Прогресив"
+    "Поп Фолк"
+    "CHR"
 )
 
 BGMUSIC=(0 16 34 38)
@@ -387,7 +393,7 @@ getGenre() {
 }
 
 # Плейър
-# Проверете за формати и тогава реши дали ще стартира с -playlist или не.
+# Проверява за формата и тогава решава дали ще стартира с -playlist опция или не.
 if echo ${STREAMS[$2]} | egrep "(.pls|.asx|.m3u)" > /dev/null 2>&1 ; then
 PLAY_COMMAND="mplayer \
 -idle -input file=$FIFO -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop -playlist"
@@ -401,7 +407,7 @@ DEFAULT_FILE="StreamDump"
 FILETYPE="mp3"
 POSTFIX="$(date +%y-%m-%d_%H:%M)"
 LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
-# Проверете за формати и тогава реши дали ще стартира с -playlist или не.
+# Проверява за формата и тогава решава дали ще стартира с -playlist опция или не.
 if echo ${STREAMS[$2]} | egrep "(.pls|.asx|.m3u)" > /dev/null 2>&1 ; then
 RECORDER="mplayer \
 -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
