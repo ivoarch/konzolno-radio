@@ -97,7 +97,7 @@ clear
 
 # Провери за инсталиран mplayer
 which mplayer >/dev/null 2>&1
-if [ $? -eq 1 ]; then
+if [[ $? -eq 1 ]]; then
     echo -e "Първо инсталирайте mplayer"
     exit 1
 fi
@@ -221,7 +221,7 @@ greenb=$'\e[1;32m'
 
 # Създай фифо файл за ремоте контрол
 FIFO="/tmp/mplayer.fifo"
-if [ ! -p $FIFO ]; then
+if [[ ! -p $FIFO ]]; then
     rm $FIFO 2>/dev/null
     mkfifo $FIFO
 fi
@@ -365,29 +365,29 @@ CHR=(4 36 37 47 49)
 
 # получава жанра
 getGenre() {
-    if [ "$1" -eq "0" ]; then
+    if [[ "$1" -eq "0" ]]; then
         genre=("${BGMUSIC[@]}")
-    elif [ "$1" -eq "1" ]; then
+    elif [[ "$1" -eq "1" ]]; then
         genre=("${BLACK[@]}")
-    elif [ "$1" -eq "2" ]; then
+    elif [[ "$1" -eq "2" ]]; then
         genre=("${DANCE[@]}")
-    elif [ "$1" -eq "3" ]; then
+    elif [[ "$1" -eq "3" ]]; then
         genre=("${POP[@]}")
-    elif [ "$1" -eq "4" ]; then
+    elif [[ "$1" -eq "4" ]]; then
         genre=("${ROCK[@]}")
-    elif [ "$1" -eq "5" ]; then
+    elif [[ "$1" -eq "5" ]]; then
         genre=("${RETRO[@]}")
-    elif [ "$1" -eq "6" ]; then
+    elif [[ "$1" -eq "6" ]]; then
         genre=("${VARIOUS[@]}")
-    elif [ "$1" -eq "7" ]; then
+    elif [[ "$1" -eq "7" ]]; then
         genre=("${HOUSE[@]}")
-    elif [ "$1" -eq "8" ]; then
+    elif [[ "$1" -eq "8" ]]; then
         genre=("${NEWS[@]}")
-    elif [ "$1" -eq "9" ]; then
+    elif [[ "$1" -eq "9" ]]; then
         genre=("${PROGRESSIVE[@]}")
-    elif [ "$1" -eq "10" ]; then
+    elif [[ "$1" -eq "10" ]]; then
        genre=("${POP_FOLK[@]}")
-    elif [ "$1" -eq "11" ]; then
+    elif [[ "$1" -eq "11" ]]; then
        genre=("${CHR[@]}")
     else
         echo "${red}Няма такъв жанр${end}"
@@ -419,24 +419,24 @@ RECORDER="mplayer \
 fi
 
 # Проверява аргументите
-if [ -z "$1" -o "$1" = "-h" -o "$1" = "--help" ]; then
+if [ -z "$1" -o "$1" == "-h" -o "$1" == "--help" ]; then
     print_help
 # Ремоте контрол
-elif [ "$1" = "mute" ]; then
+elif [[ "$1" == "mute" ]]; then
     echo "mute" > $FIFO
-elif [ "$1" = "pause" ]; then
+elif [[ "$1" == "pause" ]]; then
     echo "pause" > $FIFO
-elif [ "$1" = "stop" ]; then
+elif [[ "$1" == "stop" ]]; then
     echo "quit" > $FIFO
-elif [ "$1" = "voldown" ]; then
+elif [[ "$1" == "voldown" ]]; then
     echo "volume -20" > $FIFO
-elif [ "$1" = "volup" ]; then
+elif [[ "$1" == "volup" ]]; then
     echo "volume +20" > $FIFO
 # Информация за налична нова версия
-elif [ "$1" == "--update" ] || [ "$1" == "-u" ]; then
+elif [[ "$1" == "--update" ]] || [[ "$1" == "-u" ]]; then
     update
 # Въведете url на радиостанция
-elif [ "$1" = "--stream" ] || [ "$1" == "-s" ]; then
+elif [[ "$1" == "--stream" ]] || [[ "$1" == "-s" ]]; then
     echo -e "${greenb}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радиостанцията:${end} "
     read URL
@@ -446,11 +446,11 @@ elif [ "$1" = "--stream" ] || [ "$1" == "-s" ]; then
     $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
         "(Name|Genre|Website|Bitrate|ICY Info)"
 # Списък на радиостанции
-elif [ "$1" = "--list" ] || [ "$1" == "-l" ]; then
+elif [[ "$1" == "--list" ]] || [[ "$1" == "-l" ]]; then
     echo -e "${greenb}$BANNER${end}"
     echo -e "${blue}>>>  ${pur}Списък на всички радиостанции${end}${blue}  <<<${end}"
     i=0
-    while [ "$i" -lt "${#NAMES[*]}" ]; do
+    while [[ "$i" -lt "${#NAMES[*]}" ]]; do
         echo $i "♪" ${NAMES[$i]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
             -e "s/[^[:blank:]]\{1,\}/$pur&$end/2" \
             -e "s/[^[:blank:]]\{1,\}/$cyn&$end/3" \
@@ -460,8 +460,8 @@ elif [ "$1" = "--list" ] || [ "$1" == "-l" ]; then
         ((i++))
     done |  pr -3 -l 24 -t -T -J
 # Пусни радио от списъка
-elif [ "$1" = "--play" ] || [ "$1" == "-p" ]; then
-    if [ -n "${STREAMS[$2]}" ]; then
+elif [[ "$1" == "--play" ]] || [[ "$1" == "-p" ]]; then
+    if [[ -n "${STREAMS[$2]}" ]]; then
         echo -e "${greenb}$BANNER${end}"
         echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
         echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
@@ -474,8 +474,8 @@ elif [ "$1" = "--play" ] || [ "$1" == "-p" ]; then
         exit 1
     fi
 # Записва радиостанция от списъка
-elif [ "$1" = "--record" ] || [ "$1" == "-r" ]; then
-    if [ -n "${STREAMS[$2]}" ]; then
+elif [[ "$1" == "--record" ]] || [[ "$1" == "-r" ]]; then
+    if [[ -n "${STREAMS[$2]}" ]]; then
         echo -e "${greenb}$BANNER${end}"
         echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
         read LENGTH
@@ -489,13 +489,13 @@ elif [ "$1" = "--record" ] || [ "$1" == "-r" ]; then
         exit 1
 fi
 # Жанрове
-elif [ "$1" = "--genre" ] || [ "$1" == "-g" ]; then
+elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
     # Списък на жанрове
-    if [ "$2" = "--list" ] || [ "$2" == "-l" ]; then
+    if [[ "$2" == "--list" ]] || [[ "$2" == "-l" ]]; then
         echo -e "${greenb}$BANNER${end}"
         echo -e "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
         i=0
-        while [ "$i" -lt "${#GENRES[*]}" ]; do
+        while [[ "$i" -lt "${#GENRES[*]}" ]]; do
             echo $i "♪" ${GENRES[$i]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
                 -e "s/[^[:blank:]]\{1,\}/$pur&$end/2" \
                 -e "s/[^[:blank:]]\{1,\}/$cyn&$end/3" \
@@ -507,11 +507,11 @@ elif [ "$1" = "--genre" ] || [ "$1" == "-g" ]; then
     elif [[ $2 =~ ^[0-9]+$ ]]; then
         if [ "$2" -ge "0" -a "$2" -lt "${#GENRES[*]}" ]; then
             getGenre "$2"
-            if [ -z "$3" -o "$3" = "--list" ] || [ -z "$3" -o "$3" = "-l" ]; then
+            if [ -z "$3" -o "$3" == "--list" ] || [ -z "$3" -o "$3" == "-l" ]; then
                 echo -e "${greenb}$BANNER${end}"
                 echo -e "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
                 i=0
-                while [ "$i" -lt "${#genre[*]}" ]; do
+                while [[ "$i" -lt "${#genre[*]}" ]]; do
                     echo $i "♪" ${NAMES[${genre[$i]}]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
                         -e "s/[^[:blank:]]\{1,\}/$pur&$end/2" \
                         -e "s/[^[:blank:]]\{1,\}/$cyn&$end/3" \
@@ -521,8 +521,8 @@ elif [ "$1" = "--genre" ] || [ "$1" == "-g" ]; then
                     ((i++))
                 done
             # запиши от жанр
-            elif [ "$3" = "--record" ] || [ "$3" == "-r" ]; then
-                if [ -n "${genre[$4]}" ]; then
+            elif [[ "$3" == "--record" ]] || [[ "$3" == "-r" ]]; then
+                if [[ -n "${genre[$4]}" ]]; then
                     echo -e "${greenb}$BANNER${end}"
                     echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
                     read LENGTH
@@ -536,8 +536,8 @@ elif [ "$1" = "--genre" ] || [ "$1" == "-g" ]; then
                     exit 1
                 fi
             # пусни от жанр
-            elif [ "$3" = "--play" ] || [ "$3" == "-p" ]; then
-                if [ -n "${genre[$4]}" ]; then
+            elif [[ "$3" == "--play" ]] || [[ "$3" == "-p" ]]; then
+                if [[ -n "${genre[$4]}" ]]; then
                     echo -e "${greenb}$BANNER${end}"
                     echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
                     echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
