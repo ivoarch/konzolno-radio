@@ -394,12 +394,16 @@ getGenre() {
     fi
 }
 
+# Стрийминг формати
+FILE_FORMATS=".flac|.wma|.mms|.wmv|.ogg|.avi|.aac|.mov|.flv|.mpg|.mpeg|.asf|rtsp://|mms://|.rm"
+PLAYLIST_FORMATS=".pls|.asx|.m3u"
+
 # Плейър
 # Проверява за формата и тогава решава дали ще стартира с -playlist опция или не.
-if echo ${STREAMS[$2]} | egrep "(.pls|.asx|.m3u)" > /dev/null 2>&1 ; then
+if echo ${STREAMS[$2]} | egrep -i "(${PLAYLIST_FORMATS})" > /dev/null 2>&1 ; then
 PLAY_COMMAND="mplayer \
 -idle -input file=$FIFO -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop -playlist"
-elif echo ${STREAMS[$2]} | egrep -i "(.flac|.wma|.mms|.wmv|.ogg|.avi|.aac|.mov|.flv|.mpg|.mpeg|.asf|rtsp://|mms://|.rm)" > /dev/null 2>&1 ; then
+elif echo ${STREAMS[$2]} | egrep -i "(${FILE_FORMATS})" > /dev/null 2>&1 ; then
 PLAY_COMMAND="mplayer \
 -idle -input file=$FIFO -quiet -nolirc -cache 500 -cache-min 1 -loop 0 -prefer-ipv4 -noframedrop"
 fi
@@ -410,10 +414,10 @@ FILETYPE="mp3"
 POSTFIX="$(date +%y-%m-%d_%H:%M)"
 LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
 # Проверява за формата и тогава решава дали ще стартира с -playlist опция или не.
-if echo ${STREAMS[$2]} | egrep "(.pls|.asx|.m3u)" > /dev/null 2>&1 ; then
+if echo ${STREAMS[$2]} | egrep "(${PLAYLIST_FORMATS})" > /dev/null 2>&1 ; then
 RECORDER="mplayer \
 -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop -playlist"
-elif echo ${STREAMS[$2]} | egrep -i "(.flac|.wma|.mms|.wmv|.ogg|.avi|.aac|.mov|.flv|.mpg|.mpeg|.asf|rtsp://|mms://|.rm)" > /dev/null 2>&1 ; then
+elif echo ${STREAMS[$2]} | egrep -i "(${FILE_FORMATS})" > /dev/null 2>&1 ; then
 RECORDER="mplayer \
 -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop"
 fi
