@@ -142,7 +142,7 @@ update(){
 
 # Изкарва помощтен текст
 print_help() {
-    cat | less << 'EOD'
+    cat | less -S << 'EOD'
 konzolno-radio(1)            User Manuals                konzolno-radio(1)
 
 NAME
