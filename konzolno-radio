@@ -449,11 +449,18 @@ elif [[ "$1" == "--stream" ]] || [[ "$1" == "-s" ]]; then
     echo -e "${greenb}$BANNER${end}"
     echo -n "${blue}Въведете URL адреса за стрийминг радиостанцията:${end} "
     read URL
-    echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
-    echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
-    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
-    $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
-        "(Name|Genre|Website|Bitrate|ICY Info)"
+    regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+    if [[ $URL =~ $regex ]]; then  # провери за url адрес
+        echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
+        echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
+        echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
+        $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
+                                                "(Name|Genre|Website|Bitrate|ICY Info)"
+    else
+        echo -e "${red}Грешка... адреса $URL е навалиден!${end}"
+        echo -e "${red}Въведете правилно адреса за стрийминг радиостанцията.${end}"
+        exit 1
+    fi
 # Списък на радиостанции
 elif [[ "$1" == "--list" ]] || [[ "$1" == "-l" ]]; then
     echo -e "${greenb}$BANNER${end}"
