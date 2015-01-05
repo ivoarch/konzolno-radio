@@ -95,13 +95,6 @@
 # Изчисти екрана
 clear
 
-# Провери за инсталиран mplayer
-which mplayer >/dev/null 2>&1
-if [[ $? -eq 1 ]]; then
-    echo -e "Първо инсталирайте mplayer"
-    exit 1
-fi
-
 # Името на програмата
 # изглежда по-приятно, отколкото $0, който съдържа пълния път.
 PROG="${0##*/}"
@@ -111,6 +104,28 @@ VERSION="1.0.6"
 
 # Заглавен ред - показва се най отгоре, когато е стартирана програмата
 BANNER="${PROG} ${VERSION}"
+
+# Цветен текст
+red=$'\e[0;31m'
+green=$'\e[0;32m'
+ylw=$'\e[0;33m'
+blue=$'\e[0;34m'
+pur=$'\e[0;35m'
+cyn=$'\e[0;36m'
+end=$'\e[0m'
+greenb=$'\e[1;32m'
+
+# Провери за следните зависимости
+DEPENDS=( 'bash' 'curl' 'cat' 'mplayer' 'egrep' 'pr' 'less' )
+
+for dep in "${DEPENDS[@]}"
+do
+    if ! type -p ${dep} >/dev/null
+    then
+        echo -e "${red}Командата - ${dep} не може да бъде намерена.. Моля инсталирайте ${dep} и стартирайте $PROG отново. Изход${end}" >&2
+        exit 1
+    fi
+done
 
 # Обнови версията (ако има налична такава)
 LAST_VERSION="$(curl -silent https://github.com/ivoarch/konzolno-radio/releases/latest | \
@@ -208,16 +223,6 @@ Linux                            Sep 20, 2014                           konzolno
 EOD
      exit 0
 }
-
-# Цветен текст
-red=$'\e[0;31m'
-green=$'\e[0;32m'
-ylw=$'\e[0;33m'
-blue=$'\e[0;34m'
-pur=$'\e[0;35m'
-cyn=$'\e[0;36m'
-end=$'\e[0m'
-greenb=$'\e[1;32m'
 
 # Създай фифо файл за ремоте контрол
 FIFO="/tmp/mplayer.fifo"
