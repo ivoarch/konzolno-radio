@@ -417,7 +417,6 @@ fi
 DEFAULT_FILE="StreamDump"
 FILETYPE="mp3"
 POSTFIX="$(date +%y-%m-%d_%H:%M)"
-LENGTH="60m" # дължина във sleep формат (s) за секунди, (m) за минути, (h) за часове
 # Проверява за формата и тогава решава дали ще стартира с -playlist опция или не.
 if echo ${STREAMS[$2]} | egrep "(${PLAYLIST_FORMATS})" > /dev/null 2>&1 ; then
 RECORDER="mplayer \
@@ -493,17 +492,24 @@ elif [[ "$1" == "--play" ]] || [[ "$1" == "-p" ]]; then
 elif [[ "$1" == "--record" ]] || [[ "$1" == "-r" ]]; then
     if [[ -n "${STREAMS[$2]}" ]]; then
         echo -e "${greenb}$BANNER${end}"
-        echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
+        echo -e "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
+        echo -e "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
+        echo -n "${blue}Въведете желаното време за запис:${end} "
         read LENGTH
+        if [[ "$LENGTH" = [0-9]*[smh] ]]; then
         $RECORDER ${STREAMS[$2]} >/dev/null 2>&1 &
         PID="$!"
         sleep "${LENGTH}"
         kill "${PID}"
         exit $?
+        else
+            echo -e "${red}${LENGTH} е грешно! Моля въведете правилно желаното време за запис!${end}"
+            exit 1
+        fi
     else
         echo -e "${red}Моля, вижте списъка на наличните радиостанции.${end}"
-        exit 1
-fi
+        exit 2
+    fi
 # Жанрове
 elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
     # Списък на жанрове
@@ -540,16 +546,23 @@ elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
             elif [[ "$3" == "--record" ]] || [[ "$3" == "-r" ]]; then
                 if [[ -n "${genre[$4]}" ]]; then
                     echo -e "${greenb}$BANNER${end}"
-                    echo -n "${blue}Въведете желаното време за запис (по подразбиране 60мин.):${end} "
+                    echo -e "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
+                    echo -e "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
+                    echo -n "${blue}Въведете желаното време за запис:${end} "
                     read LENGTH
+                    if [[ "$LENGTH" = [0-9]*[smh] ]]; then
                     $RECORDER ${STREAMS[${genre[$4]}]} >/dev/null 2>&1 &
                     PID="$!"
                     sleep "${LENGTH}"
                     kill "${PID}"
                     exit $?
+                    else
+                    echo -e "${red}${LENGTH} е грешно! Моля въведете правилно желаното време за запис!${end}"
+                    exit 1
+                    fi
                 else
                     echo "${red}Моля, вижте списъка на наличните радиостанции от този жанр.${end}"
-                    exit 1
+                    exit 2
                 fi
             # пусни от жанр
             elif [[ "$3" == "--play" ]] || [[ "$3" == "-p" ]]; then
