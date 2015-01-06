@@ -129,7 +129,7 @@ for dep in "${DEPENDS[@]}"
 do
     if ! type -p ${dep} >/dev/null
     then
-        echo -e "${red}Командата - ${dep} не може да бъде намерена.. Моля инсталирайте ${dep} и стартирайте $PROG отново. Изход${end}" >&2
+        printf "%s\n" "${red}Командата - ${dep} не може да бъде намерена.. Моля инсталирайте ${dep} и стартирайте $PROG отново. Изход${end}" >&2
         exit 1
     fi
 done
@@ -141,8 +141,8 @@ URI="https://github.com/ivoarch/konzolno-radio/archive/${LAST_VERSION}.tar.gz"
 
 update(){
     if [[ $VERSION != $LAST_VERSION ]]; then
-        echo -e "${green}[Добри новини] Налична е нова версия - $LAST_VERSION${end}"
-        echo -n "${blue}Искали да актуализирате? (y/n):${end} "
+        printf "%s\n" "${green}[Добри новини] Налична е нова версия - $LAST_VERSION${end}"
+        printf "%s\n" "${blue}Искали да актуализирате? (y/n):${end} "
         read answer
         if [[ $answer == "y" ]];then
             pushd "$(mktemp -d "/tmp/tmp.XXXXXXXXXX")"
@@ -153,12 +153,12 @@ update(){
             popd
             # по добро решение?
             sed -i "s/${VERSION}/${LAST_VERSION}/g" /usr/bin/"$PROG"
-            echo -e "${green}Поздравления! Вашата версия беше актуализирана на $LAST_VERSION${end}"
+            printf "%s\n" "${green}Поздравления! Вашата версия беше актуализирана на $LAST_VERSION${end}"
         else
             exit 1
         fi
     else
-        echo -e "${green}Поздравления! Имате инсталирана последната версия $VERSION${end}"
+        printf "%s\n" "${green}Поздравления! Имате инсталирана последната версия $VERSION${end}"
     fi
 }
 
@@ -402,7 +402,7 @@ getGenre() {
     elif [[ "$1" -eq "11" ]]; then
        genre=("${CHR[@]}")
     else
-        echo "${red}Няма такъв жанр${end}"
+        printf "%s\n" "${red}Няма такъв жанр${end}"
     fi
 }
 
@@ -452,25 +452,25 @@ elif [[ "$1" == "--update" ]] || [[ "$1" == "-u" ]]; then
     update
 # Въведете url на радиостанция
 elif [[ "$1" == "--stream" ]] || [[ "$1" == "-s" ]]; then
-    echo -e "${greenb}$BANNER${end}"
-    echo -n "${blue}Въведете URL адреса за стрийминг радиостанцията:${end} "
+    printf "%s\n" "${greenb}$BANNER${end}"
+    printf %s "${blue}Въведете URL адреса за стрийминг радиостанцията:${end} "
     read URL
     regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
     if [[ $URL =~ $regex ]]; then  # провери за url адрес
-        echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
-        echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
-        echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
+        printf "%s\n" "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
+        printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
+        printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
         $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
                                                 "(Name|Genre|Website|Bitrate|ICY Info)"
     else
-        echo -e "${red}Грешка... адреса $URL е навалиден!${end}"
-        echo -e "${red}Въведете правилно адреса за стрийминг радиостанцията.${end}"
+        printf "%s\n" "${red}Грешка... адреса $URL е навалиден!${end}"
+        printf "%s\n" "${red}Въведете правилно адреса за стрийминг радиостанцията.${end}"
         exit 1
     fi
 # Списък на радиостанции
 elif [[ "$1" == "--list" ]] || [[ "$1" == "-l" ]]; then
-    echo -e "${greenb}$BANNER${end}"
-    echo -e "${blue}>>>  ${pur}Списък на всички радиостанции${end}${blue}  <<<${end}"
+    printf "%s\n" "${greenb}$BANNER${end}"
+    printf "%s\n" "${blue}>>>  ${pur}Списък на всички радиостанции${end}${blue}  <<<${end}"
     i=0
     while [[ "$i" -lt "${#NAMES[*]}" ]]; do
         echo $i "♪" ${NAMES[$i]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
@@ -484,24 +484,24 @@ elif [[ "$1" == "--list" ]] || [[ "$1" == "-l" ]]; then
 # Пусни радио от списъка
 elif [[ "$1" == "--play" ]] || [[ "$1" == "-p" ]]; then
     if [[ -n "${STREAMS[$2]}" ]]; then
-        echo -e "${greenb}$BANNER${end}"
-        echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
-        echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
-        echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
+        printf "%s\n" "${greenb}$BANNER${end}"
+        printf "%s\n" "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
+        printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
+        printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
         $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
             "(Name|Genre|Website|Bitrate|ICY Info)"
         exit $?
     else
-        echo -e "${red}Моля, вижте списъка на наличните радиостанции.${end}"
+        printf "%s\n" "${red}Моля, вижте списъка на наличните радиостанции.${end}"
         exit 1
     fi
 # Записва радиостанция от списъка
 elif [[ "$1" == "--record" ]] || [[ "$1" == "-r" ]]; then
     if [[ -n "${STREAMS[$2]}" ]]; then
-        echo -e "${greenb}$BANNER${end}"
-        echo -e "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
-        echo -e "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
-        echo -n "${blue}Въведете желаното време за запис:${end} "
+        printf "%s\n" "${greenb}$BANNER${end}"
+        printf "%s\n" "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
+        printf "%s\n" "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
+        printf %s "${blue}Въведете желаното време за запис:${end} "
         read LENGTH
         if [[ "$LENGTH" = [0-9]*[smh] ]]; then
         $RECORDER ${STREAMS[$2]} >/dev/null 2>&1 &
@@ -510,19 +510,19 @@ elif [[ "$1" == "--record" ]] || [[ "$1" == "-r" ]]; then
         kill "${PID}"
         exit $?
         else
-            echo -e "${red}${LENGTH} е грешно! Моля въведете правилно желаното време за запис!${end}"
+            printf "%s\n" "${red}${LENGTH} е грешно! Моля въведете правилно желаното време за запис!${end}"
             exit 1
         fi
     else
-        echo -e "${red}Моля, вижте списъка на наличните радиостанции.${end}"
+        printf "%s\n" "${red}Моля, вижте списъка на наличните радиостанции.${end}"
         exit 2
     fi
 # Жанрове
 elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
     # Списък на жанрове
     if [[ "$2" == "--list" ]] || [[ "$2" == "-l" ]]; then
-        echo -e "${greenb}$BANNER${end}"
-        echo -e "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
+        printf "%s\n" "${greenb}$BANNER${end}"
+        printf "%s\n" "${blue}>>>  ${pur}Списък на всички жанрове${end}${blue}  <<<${end}"
         i=0
         while [[ "$i" -lt "${#GENRES[*]}" ]]; do
             echo $i "♪" ${GENRES[$i]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
@@ -537,8 +537,8 @@ elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
         if [ "$2" -ge "0" -a "$2" -lt "${#GENRES[*]}" ]; then
             getGenre "$2"
             if [ -z "$3" -o "$3" == "--list" ] || [ -z "$3" -o "$3" == "-l" ]; then
-                echo -e "${greenb}$BANNER${end}"
-                echo -e "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
+                printf "%s\n" "${greenb}$BANNER${end}"
+                printf "%s\n" "${blue}>>>  ${pur}${GENRES[$2]}${end}${blue}  <<<${end}"
                 i=0
                 while [[ "$i" -lt "${#genre[*]}" ]]; do
                     echo $i "♪" ${NAMES[${genre[$i]}]} | sed -e "s/[^[:blank:]]\{1,\}/$ylw&$end/1" \
@@ -552,10 +552,10 @@ elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
             # запиши от жанр
             elif [[ "$3" == "--record" ]] || [[ "$3" == "-r" ]]; then
                 if [[ -n "${genre[$4]}" ]]; then
-                    echo -e "${greenb}$BANNER${end}"
-                    echo -e "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
-                    echo -e "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
-                    echo -n "${blue}Въведете желаното време за запис:${end} "
+                    printf "%s\n" "${greenb}$BANNER${end}"
+                    printf "%s\n" "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
+                    printf "%s\n" "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
+                    printf %s "${blue}Въведете желаното време за запис:${end} "
                     read LENGTH
                     if [[ "$LENGTH" = [0-9]*[smh] ]]; then
                     $RECORDER ${STREAMS[${genre[$4]}]} >/dev/null 2>&1 &
@@ -564,41 +564,41 @@ elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
                     kill "${PID}"
                     exit $?
                     else
-                    echo -e "${red}${LENGTH} е грешно! Моля въведете правилно желаното време за запис!${end}"
+                    printf "%s\n" "${red}${LENGTH} е грешно! Моля въведете правилно желаното време за запис!${end}"
                     exit 1
                     fi
                 else
-                    echo "${red}Моля, вижте списъка на наличните радиостанции от този жанр.${end}"
+                    printf "%s\n" "${red}Моля, вижте списъка на наличните радиостанции от този жанр.${end}"
                     exit 2
                 fi
             # пусни от жанр
             elif [[ "$3" == "--play" ]] || [[ "$3" == "-p" ]]; then
                 if [[ -n "${genre[$4]}" ]]; then
-                    echo -e "${greenb}$BANNER${end}"
-                    echo -e "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
-                    echo -e "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
-                    echo -e "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
+                    printf "%s\n" "${greenb}$BANNER${end}"
+                    printf "%s\n" "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
+                    printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
+                    printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
                     $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
                         "(Name|Genre|Website|Bitrate|ICY Info)"
                     exit $?
                 else
-                    echo "${red}Моля, вижте списъка на наличните радиостанции от този жанр.${end}"
+                    printf "%s\n" "${red}Моля, вижте списъка на наличните радиостанции от този жанр.${end}"
                     exit 1
                 fi
             else
-                echo "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
+                printf "%s\n" "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
                 exit 2
             fi
         else
-            echo "${red}Моля, вижте списъка от жанрове.${end}"
+            printf "%s\n" "${red}Моля, вижте списъка от жанрове.${end}"
             exit 1
         fi
     else
-        echo "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
+        printf "%s\n" "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
         exit 2
     fi
 else
-    echo "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
+    printf "%s\n" "${red}Няма такава опция: Използвайте ${PROG} -h за помощ.${end}"
     exit 2
 fi
 exit 0
