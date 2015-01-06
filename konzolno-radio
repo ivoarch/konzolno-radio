@@ -123,7 +123,7 @@ end=$'\e[0m'
 greenb=$'\e[1;32m'
 
 # Провери за следните зависимости
-DEPENDS=( 'bash' 'curl' 'cat' 'mplayer' 'egrep' 'pr' 'less' )
+DEPENDS=( 'bash' 'curl' 'cat' 'mplayer' 'egrep' 'pr' 'sed' 'less' )
 
 for dep in "${DEPENDS[@]}"
 do
