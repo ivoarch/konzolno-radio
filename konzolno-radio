@@ -290,6 +290,7 @@ NAMES=(
     "PowerFM"
     "Радио КуКу"
     "Твоето радио"
+    "Radio Black Sea"
 )
 
 # Стрийминги
@@ -344,6 +345,7 @@ STREAMS=(
     "http://a1.virtualradio.eu:8000/powerfm.mp3.m3u"
     "http://stereo.wavestreamer.com:1774/listen.pls?sid=1"
     "http://79.98.108.173:8010/radio.m3u"
+    "http://174.36.232.226:8012/stream.m3u"
 )
 
 # Жанрове
@@ -363,7 +365,7 @@ GENRES=(
 )
 
 BGMUSIC=(0 16 34 38)
-BLACK=(34 38 39)
+BLACK=(34 38 39 50)
 DANCE=(6 20 25 37 40 41)
 POP=(3 4 7 8 9 10 12 21 35 37 46 49)
 ROCK=(1 2 13 17 19 21 26 27 43)
