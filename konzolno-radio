@@ -462,6 +462,7 @@ elif [[ "$1" == "--stream" ]] || [[ "$1" == "-s" ]]; then
         printf "%s\n" "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
         printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
         printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
+        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
         $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
                                                 "(Name|Genre|Website|Bitrate|ICY Info)"
     else
@@ -490,6 +491,7 @@ elif [[ "$1" == "--play" ]] || [[ "$1" == "-p" ]]; then
         printf "%s\n" "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
         printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
         printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
+        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
         $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
             "(Name|Genre|Website|Bitrate|ICY Info)"
         exit $?
@@ -503,6 +505,7 @@ elif [[ "$1" == "--record" ]] || [[ "$1" == "-r" ]]; then
         printf "%s\n" "${greenb}$BANNER${end}"
         printf "%s\n" "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
         printf "%s\n" "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
+        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
         printf %s "${blue}Въведете желаното време за запис:${end} "
         read LENGTH
         if [[ "$LENGTH" = [0-9]*[smh] ]]; then
@@ -557,6 +560,7 @@ elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
                     printf "%s\n" "${greenb}$BANNER${end}"
                     printf "%s\n" "${ylw}(s)${blue} за секунди, ${ylw}(m)${blue} за минути, ${ylw}(h)${blue} за часове.${end}"
                     printf "%s\n" "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
+                    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
                     printf %s "${blue}Въведете желаното време за запис:${end} "
                     read LENGTH
                     if [[ "$LENGTH" = [0-9]*[smh] ]]; then
@@ -580,6 +584,7 @@ elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
                     printf "%s\n" "${blue}Натиснете ${ylw}'q'${end}${blue} за да излезете${end}"
                     printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
                     printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
+                    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
                     $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
                         "(Name|Genre|Website|Bitrate|ICY Info)"
                     exit $?
