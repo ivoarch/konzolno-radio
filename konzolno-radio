@@ -186,6 +186,7 @@ OPTIONS
      [-r | --record]  Запишете mp3 радио стрийминг на файл.
      [-h | --help]    Показва този помощен текст.
      [-u | --update]  Проверява за нова версия, и ако има такава я инсталира. (трябва да сте root за да инсталирате)
+     [-w | --wake]    Аларма
 
 EXAMPLES
      Пусни радио станция:
@@ -225,7 +226,7 @@ REPORTING BUGS
 SEE ALSO
      mplayer(1)
 
-Linux                            Sep 20, 2014                           konzolno-radio(1)
+Linux                            Apr 04, 2015                           konzolno-radio(1)
 
 EOD
      exit 0
@@ -435,6 +436,9 @@ RECORDER="mplayer \
 -nolirc -dumpstream -dumpfile ${DEFAULT_FILE}_${POSTFIX}.${FILETYPE} -noframedrop"
 fi
 
+# Аларма
+ALARMCLOCK="mplayer -really-quiet -nolirc -loop 0"
+
 # Проверява аргументите
 if [ -z "$1" -o "$1" == "-h" -o "$1" == "--help" ]; then
     print_help
@@ -522,6 +526,20 @@ elif [[ "$1" == "--record" ]] || [[ "$1" == "-r" ]]; then
         printf "%s\n" "${red}Моля, вижте списъка на наличните радиостанции.${end}"
         exit 2
     fi
+elif [[ "$1" == "--wake" ]] || [[ "$1" == "-w" ]]; then
+        printf "%s\n" "${greenb}$BANNER${end}"
+        printf "%s\n" "${blue}Пример: ${ylw}20s${blue} за 20 секунди, ${ylw}20m${blue} за 20 минути, ${ylw}2h${blue} за 2 часа.${end}"
+        printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+        printf %s "${blue}Въведете след колко време да алармира:?${end} "
+        read waits
+        if [[ "$waits" = [0-9]*[smh] ]]; then
+          printf "%s\n" "${pur}Натиснете ${ylw}'Control + C'${pur} за да спрете алармата.${end}"
+          sleep "$waits" && $ALARMCLOCK "/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga"
+        else
+          printf "%s\n" "${red}${waits} е грешно! Моля въведете правилно желаното време до алармата!${end}"
+          exit 1
+        fi
+        printf "%s\n" "${green}Изход!${end}"
 # Жанрове
 elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
     # Списък на жанрове
