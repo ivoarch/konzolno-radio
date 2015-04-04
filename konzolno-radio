@@ -144,6 +144,12 @@ do
     fi
 done
 
+# Проверка за инсталиран 'sound-theme-freedesktop'
+if [ ! -f "/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga" ]; then
+  printf "%s\n" "${red}Файла - alarm-clock-elapsed.oga не е намерен.. Моля инсталирайте sound-theme-freedesktop и стартирайте $PROG отново. Изход${end}" >&2
+  exit 1
+fi
+
 # Обнови версията (ако има налична такава)
 LAST_VERSION="$(curl -silent https://github.com/ivoarch/konzolno-radio/releases/latest | \
         grep -i location: | sed 's/^.*\/tag\/\([^\/]*\)\r$/\1/')"
