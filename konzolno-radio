@@ -291,7 +291,7 @@ NAMES=(
     "Радио Фолк Бг"
     "Дарик радио"
     "Дарик носталджи"
-    "Радио PartyStyle"
+    "Radio Tatkovina"
     "KatraFM"
     "Радио Мая"
     "MFM Hitradio"
@@ -346,7 +346,7 @@ STREAMS=(
     "http://folkbg.net/folkbg.net.m3u"
     "http://slusham.com/radio/darik.m3u"
     "http://dariknostalgie.bg/wp-content/uploads/nostalgie.m3u"
-    "http://radiocp.novahost.bg:2199/tunein/radio162.pls"
+    "http://67.205.111.204:8000/bg.m3u"
     "http://www.katrafm.com/katrafm_mp3pro.m3u"
     "http://mail.rntel.com:9000/listen.pls"
     "http://www.mfmhitradio.net/mfm.m3u"
@@ -382,7 +382,7 @@ GENRES=(
 )
 
 BGMUSIC=(0 16 34 38)
-BLACK=(34 38 39 50)
+BLACK=(38 39 50)
 DANCE=(6 20 25 37 40 41)
 POP=(3 4 7 8 9 10 12 21 35 37 46 49)
 ROCK=(1 2 13 17 19 21 26 27 43)
