@@ -7,6 +7,9 @@
 # 1.0.8 версия
 # автор: Ivaylo Kuzev
 #
+# Ново радио Cyberfolk на мястото на VoodooNet.
+# Ново радио Пайнер на мястото на Балканско радио.
+# Ново radio tatkovina на мястото на Радио PartyStyle.
 # Добавена е опция [-w|--wake] за събуждане.
 # Добавяне на хоризонтална линия, за отделяне на някои елементи.
 # Ново hiphop радио Radio 5 polk на мястото на YAKATA RABOTA .
@@ -287,7 +290,7 @@ NAMES=(
     "Ghost Rider Radio"
     "Радио Вероника"
     "Радио Веселина"
-    "Балканско радио"
+    "Радио Пайнер"
     "Радио Фолк Бг"
     "Дарик радио"
     "Дарик носталджи"
@@ -295,7 +298,7 @@ NAMES=(
     "KatraFM"
     "Радио Мая"
     "MFM Hitradio"
-    "VoodooNet"
+    "CyberFolk"
     "Radio 5 polk"
     "Dee Jay"
     "Hot Dance"
@@ -342,7 +345,7 @@ STREAMS=(
     "http://79.98.108.176:8022/listen.pls"
     "http://149.13.0.80/veronika.ogg"
     "http://www.slusham.com/radio/veselina.m3u"
-    "http://stream.balkanskoradio.com/live.mp3.m3u"
+    "http://87.120.6.86:8000/hq.m3u"
     "http://folkbg.net/folkbg.net.m3u"
     "http://slusham.com/radio/darik.m3u"
     "http://dariknostalgie.bg/wp-content/uploads/nostalgie.m3u"
@@ -350,7 +353,7 @@ STREAMS=(
     "http://www.katrafm.com/katrafm_mp3pro.m3u"
     "http://mail.rntel.com:9000/listen.pls"
     "http://www.mfmhitradio.net/mfm.m3u"
-    "http://voodoonet.biz:8000/listen.pls"
+    "http://play.radiocyberfolk.com/cyberfolk.m3u"
     "http://79.98.108.171:8006/listen.pls"
     "http://radiodeejay.eu:8000/live.m3u"
     "http://listen.hotget.net:8000/radio.m3u"
@@ -382,7 +385,7 @@ GENRES=(
 )
 
 BGMUSIC=(0 16 34 38)
-BLACK=(38 39 50)
+BLACK=(39 50)
 DANCE=(6 20 25 37 40 41)
 POP=(3 4 7 8 9 10 12 21 35 37 46 49)
 ROCK=(1 2 13 17 19 21 26 27 43)
