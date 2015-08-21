@@ -478,6 +478,8 @@ elif [[ "$1" == "--update" ]] || [[ "$1" == "-u" ]]; then
 # Въведете url на радиостанция
 elif [[ "$1" == "--stream" ]] || [[ "$1" == "-s" ]]; then
     printf "%s\n" "${greenb}$BANNER${end}"
+    printf "%s\n" "${blue}Пример:${end} http://url-radio-streaming"
+    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
     printf %s "${blue}Въведете URL адреса за стрийминг радиостанцията:${end} "
     read URL
     regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
