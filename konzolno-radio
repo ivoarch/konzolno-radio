@@ -319,7 +319,7 @@ STREAMS=(
     "http://149.13.0.81/radio1rock.ogg"
     "http://ng.btv.bg/m3u/zrock.m3u"
     "http://149.13.0.80/nrj.ogg"
-    "http://city.bg/files/RADIO_CITY.pls"
+    "http://149.13.0.80/city.ogg"
     "http://193.108.24.21:8000/fresh.m3u"
     "http://play.radiomaxxfm.com/maxx.m3u"
     "http://ng.btv.bg/m3u/njoy.m3u"
