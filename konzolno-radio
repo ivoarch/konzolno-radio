@@ -289,7 +289,7 @@ NAMES=(
     "24x7 Rock радио"
     "Ghost Rider Radio"
     "Радио Вероника"
-    "Радио Веселина"
+    "Радио Ултра"
     "Радио Пайнер"
     "Радио Фолк Бг"
     "Дарик радио"
@@ -344,7 +344,7 @@ STREAMS=(
     "http://193.107.70.107:8000/stream.ogg.m3u"
     "http://79.98.108.176:8022/listen.pls"
     "http://149.13.0.80/veronika.ogg"
-    "http://www.slusham.com/radio/veselina.m3u"
+    "http://www.ultranet.biz/ultrapernik.m3u"
     "http://87.120.6.86:8000/hq.m3u"
     "http://folkbg.net/folkbg.net.m3u"
     "http://slusham.com/radio/darik.m3u"
@@ -386,7 +386,7 @@ GENRES=(
 
 BGMUSIC=(0 16 34 38)
 BLACK=(39 50)
-DANCE=(6 20 25 37 40 41)
+DANCE=(6 20 25 37 41)
 POP=(3 4 7 8 9 10 12 21 35 37 46 49)
 ROCK=(1 2 13 17 19 21 26 27 43)
 RETRO=(9 20 33 41)
@@ -394,7 +394,7 @@ VARIOUS=(5 15 19 35 42 44 45 48)
 HOUSE=(6 11 18 24)
 NEWS=(8 14 32)
 PROGRESSIVE=(22 23)
-POP_FOLK=(28 29 30 31)
+POP_FOLK=(28 29 30 31 40)
 CHR=(4 36 37 47 49)
 
 # получава жанра
