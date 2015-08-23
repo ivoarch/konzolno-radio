@@ -389,7 +389,7 @@ BLACK=(39 50)
 DANCE=(6 20 25 37 41)
 POP=(3 4 7 8 9 10 12 21 35 37 46 49)
 ROCK=(1 2 13 17 19 21 26 27 43)
-RETRO=(9 20 33 41)
+RETRO=(9 20 25 33 41)
 VARIOUS=(5 15 19 35 42 44 45 48)
 HOUSE=(6 11 18 24)
 NEWS=(8 14 32)
@@ -488,8 +488,7 @@ elif [[ "$1" == "--stream" ]] || [[ "$1" == "-s" ]]; then
         printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
         printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
         printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-        $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
-                                                "(Name|Genre|Website|^Bitrate|ICY Info)"
+        $PLAY_COMMAND "${URL}" 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|^Bitrate|Starting playback...)"
     else
         printf "%s\n" "${red}Грешка... адреса $URL е навалиден!${end}"
         printf "%s\n" "${red}Въведете правилно адреса за стрийминг радиостанцията.${end}"
@@ -517,8 +516,7 @@ elif [[ "$1" == "--play" ]] || [[ "$1" == "-p" ]]; then
         printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
         printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
         printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-        $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
-            "(Name|Genre|Website|^Bitrate|ICY Info)"
+        $PLAY_COMMAND ${STREAMS[$2]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|^Bitrate|Starting playback...)"
         exit $?
     else
         printf "%s\n" "${red}Моля, вижте списъка на наличните радиостанции.${end}"
@@ -624,8 +622,7 @@ elif [[ "$1" == "--genre" ]] || [[ "$1" == "-g" ]]; then
                     printf "%s\n" "${blue}Регулирайте силата на звука със vol- ${ylw}'9'${end}${blue} и vol+ ${end}${ylw}'0'${end}"
                     printf "%s\n" "${blue}За да паузирате ${end}${ylw}'p'${end}${blue} за изключване на звука ${end}${ylw}'m'${end}"
                     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-                    $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i \
-                        "(Name|Genre|Website|^Bitrate|ICY Info)"
+                    $PLAY_COMMAND ${STREAMS[${genre[$4]}]} 2>&1 | GREP_COLOR='0;33' egrep --color=always -i "(Name|Genre|Website|^Bitrate|Starting playback...)"
                     exit $?
                 else
                     printf "%s\n" "${red}Моля, вижте списъка на наличните радиостанции от този жанр.${end}"
